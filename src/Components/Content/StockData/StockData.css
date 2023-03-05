@@ -1,0 +1,30 @@
+.TopGainerPage{
+    background-image: url('https://img.freepik.com/free-vector/abstract-background-with-squares_23-2148995948.jpg?w=996&t=st=1676458983~exp=1676459583~hmac=bed823cc3532cde7e1e87877509cfa94813c69a0c8b6a2fb45a575601a120b04');
+}
+
+.TopGainerTable {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .TopGainerTable th, .TopGainerTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .TopGainerTable th {
+    background-color: #f2f2f2;
+    color: #555;
+  }
+  
+  .TopGainerTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .TopGainerTable tr:hover {
+    background-color: #ddd;
+  }
+  .refreshButtonImage{
+    width: 50px;
+  }

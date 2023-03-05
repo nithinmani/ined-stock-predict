@@ -1,0 +1,73 @@
+.mainpage {
+    background-image: url("https://images.pexels.com/photos/5561920/pexels-photo-5561920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    
+    justify-content: center;
+  }
+  .stocks{
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mainsection {
+    background-color: rgba(255, 255, 255, 0.5);
+    
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height:fit-content;
+    text-align: center;
+    padding-bottom: 20px;
+    align-items: center;
+  }
+.personalinfo{
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
+  
+}
+ .valuestack{
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 19px;
+  justify-content: center;
+
+ }
+
+  .stock-holdings {
+    
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    width:300px
+  }
+  
+
+
+  .add-new-stock-button
+ {
+    background-color: rgb(66, 103, 178);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+    min-width: 4em;
+    max-width: 8em;
+    
+  }
+
+  .logout-button {
+    margin: 50px;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    float: right;
+    background-color: rgb(225, 76, 76);
+  }

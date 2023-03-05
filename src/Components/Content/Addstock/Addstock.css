@@ -1,0 +1,23 @@
+/* .SideImg{
+    display: flex;
+    float: right;
+    background-repeat: no-repeat;
+    background-position: right top;
+    margin-top: 70px;
+    padding: 60px 0;
+} */
+.userCard{
+    
+    width: 100vh;
+    
+}
+/* .companyCard{}
+.stockCard{ */
+
+/* } */
+.rightpart{
+    background-image: url('https://img.freepik.com/free-vector/business-support-concept-illustration_114360-9176.jpg?w=740&t=st=1677405286~exp=1677405886~hmac=d079f55138fef0f10f469d88684b09554016940c9350efca3497c5059a0e0164');
+    width: 100%;
+    background-repeat: no-repeat;
+    
+}

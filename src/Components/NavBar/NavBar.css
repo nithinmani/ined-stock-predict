@@ -1,0 +1,21 @@
+.logo{
+    height: 40px;
+    width: 170px;
+}
+.NavB>li:hover{
+background-size:contain;
+background-color: beige;
+}
+.SearchB{
+    margin-left: 20px;
+}
+.profilePic{
+    height: 40px;
+    width: 40px;
+}
+.navbar-nav {
+    margin-left: auto;
+  }
+  .navbar {
+    background-image: linear-gradient(to bottom, #09021b, #000);
+  }
