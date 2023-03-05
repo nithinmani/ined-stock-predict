@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Addstock.css";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 function Addstock() {
@@ -25,60 +25,65 @@ function Addstock() {
           const data = await response.json();
           setUser(data);
         } else {
-          throw new Error('Failed to fetch user data');
+          throw new Error("Failed to fetch user data");
         }
       } catch (err) {
         console.error(err);
-        setErrorMessage('Failed to fetch user data');
+        setErrorMessage("Failed to fetch user data");
       }
     }
     getUser();
   }, []);
- 
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     setToken(token);
     console.log(token);
   }, []);
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data) 
+    console.log(data);
     const DOP = data.DOP;
     const VOP = data.VOP;
     const stockVolume = data.stockVolume;
-    const company = data.company
+    const company = data.company;
 
     try {
       const response = await fetch("http://localhost:1337/api/add-stock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          'x-access-token': token,
+          "x-access-token": token,
         },
         body: JSON.stringify({
           DOP,
           VOP,
           stockVolume,
-          company
+          company,
         }),
       });
       if (response.ok) {
         const data1 = await response.json();
         console.log(data1);
-        navigate('/profile');
+        navigate("/profile");
       } else {
-        throw new Error('Failed to add stock');
+        throw new Error("Failed to add stock");
       }
     } catch (err) {
       console.error(err);
-      setErrorMessage('Failed to add stock');
+      setErrorMessage("Failed to add stock");
     }
-  }
+  };
 
   return (
-    <div className="row addStockPage"
+    <div
+      className="row addStockPage"
       style={{
         width: "100%",
         height: "100%",
@@ -90,7 +95,9 @@ function Addstock() {
           <div className="col-md-8">
             <div className="card mb-4">
               <div className="card-body userCard">
-                <p className="text-uppercase fw-bold mb-3 text-font ">Name: {user.user?.name}</p>
+                <p className="text-uppercase fw-bold mb-3 text-font ">
+                  Name: {user.user?.name}
+                </p>
                 <div className="row">
                   <div className="col-md-4">
                     <p className="">{user.user?.name}</p>
@@ -99,7 +106,7 @@ function Addstock() {
                 <div className="row">
                   <div className="col-md-4">
                     <p className="text-uppercase fw-bold mb-3 text-font ">
-                      EMAIL: 
+                      EMAIL:
                     </p>
                   </div>
                 </div>
@@ -180,27 +187,23 @@ function Addstock() {
                     />
                   </div>
                   <div className="text-center">
-                 
-                     <button
+                    <button
                       type="submit"
                       className="btn button-order col-md-10 bg-success text-white"
-                    > Add stock
-                        </button>
-                    
+                    >
+                      {" "}
+                      Add stock
+                    </button>
                   </div>
                 </form>
               </div>
             </div>
           </div>
-          
         </div>
-        
       </div>
-     <div className="col-6 rightpart">
-      
-     </div>
+      <div className="col-6 rightpart"></div>
     </div>
   );
-    }
+}
 
 export default Addstock;
