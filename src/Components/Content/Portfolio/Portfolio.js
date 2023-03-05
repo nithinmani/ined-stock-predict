@@ -75,61 +75,63 @@ function Portfolio() {
     localStorage.clear();
     navigate("/register");
   }
-  
-     
 
   return (
-<div className="mainpage">
+    <div className="mainpage">
       {user && (
-        <div className="p-5 me-auto"  >
-          <div className="row  personalinfo" style={{borderRadius:"20px"}}>
-            <div className="col">
+        <div className="p-3 p-md-5">
+          <div className="row personalinfo mb-4 mb-md-5">
+            <div className="col-12 col-md-8">
               <h2 className="YourName">{user.user.name}</h2>
               <p>{user.user.email}</p>
             </div>
-            <div className="col">
-              <button className="logout-button " onClick={handleLogout}>Log Out</button>
+            <div className="col-12 col-md-4">
+              <button
+                className="logout-button btn btn-outline-light"
+                onClick={handleLogout}
+              >
+                Log Out
+              </button>
             </div>
           </div>
-          
-          <div className="row my-5  stocks">
-            <div className="col-8 mainsection">
-            <h2 className="mt-4" style={{fontWeight:"bold"}}>STOCK HOLDINGS</h2>
-            <div className="table-responsive p-3">
-                  <table className="table table-dark">
-                  <thead className="thead-light " style={{fontSize:"25px"}}>
-                      <tr className="portfolioTableTitles py-5">
-                        <th scope="col">Company</th>
-                        <th scope="col">Stock Volume</th>
-                        <th scope="col">Purchase Date</th>
-                        <th scope="col">Cost</th>
-                        <th scope="col">Current Price</th>
-                        <th scope="col">Holdings</th>
-                        <th></th>
-                      </tr>
-                      </thead>
-                      <tbody style={{fontSize:"20px"}}>
-                      {user.stocks.map((stock, index) => (
-                        <tr key={index}>
-                          <td>{stock.company}</td>
-                          <td>{stock.stockVolume}</td>
-                          <td>{stock.DOP}</td>
-                          <td>&#8377;{stock.VOP}</td>
-                          <td>
-                            &#8377;
-                            {stockValues[index] &&
-                              stockValues[index].toFixed(3)}
-                          </td>
-                          <td>
-                            &#8377;
-                            {stockValues[index] &&
-                              (stock.stockVolume * stockValues[index]).toFixed(
-                                3
-                              )}
-                          </td>
-                          
-                          {/*DELETE BUTTON BEGIN ................................................................... */}
-                          <td>
+
+          <div className="row stocks">
+            <div className="col-12 col-md-8">
+              <h2 className="mt-4 mb-3 mb-md-4" style={{ fontWeight: "bold" }}>
+                STOCK HOLDINGS
+              </h2>
+              <div className="table-responsive">
+                <table className="table table-dark">
+                  <thead className="thead-light " style={{ fontSize: "1rem" }}>
+                    <tr className="portfolioTableTitles">
+                      <th scope="col">Company</th>
+                      <th scope="col">Stock Volume</th>
+                      <th scope="col">Purchase Date</th>
+                      <th scope="col">Cost</th>
+                      <th scope="col">Current Price</th>
+                      <th scope="col">Holdings</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody style={{ fontSize: "0.8rem" }}>
+                    {user.stocks.map((stock, index) => (
+                      <tr key={index}>
+                        <td>{stock.company}</td>
+                        <td>{stock.stockVolume}</td>
+                        <td>{stock.DOP}</td>
+                        <td>&#8377;{stock.VOP}</td>
+                        <td>
+                          &#8377;
+                          {stockValues[index] && stockValues[index].toFixed(3)}
+                        </td>
+                        <td>
+                          &#8377;
+                          {stockValues[index] &&
+                            (stock.stockVolume * stockValues[index]).toFixed(3)}
+                        </td>
+
+                        {/*DELETE BUTTON BEGIN ................................................................... */}
+                        <td>
                           <button
                             className="m-3 px-3 bg-danger"
                             style={{ borderRadius: "5px" }}
@@ -142,8 +144,8 @@ function Portfolio() {
                                   headers: {
                                     "Content-Type": "application/json",
                                   },
-                                  body:JSON.stringify( {
-                                    id:stock.stockId,
+                                  body: JSON.stringify({
+                                    id: stock.stockId,
                                   }),
                                 }
                               );
@@ -154,43 +156,58 @@ function Portfolio() {
                           >
                             X
                           </button>
-                          </td>
-                          {/*DELETE BUTTON END ................................................................... */}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  </div>
-                  {/*Table of the user stock holdings  END...............................................*/}
+                        </td>
+                        {/*DELETE BUTTON END ................................................................... */}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {/*Table of the user stock holdings  END...............................................*/}
             </div>
-            <div className="col-4">
+            <div className="col-12 col-md-4">
               <div className="container valuestack">
                 <div className="row">
-                  <h4 className="" style={{color:"blue"}}>Total Stock Holdings:&#8377;{totalHoldings.toFixed(3)}</h4>
-                  <h4 className="" style={{color:"red"}}>Total Cost:{totalCost}</h4>
-                  <h2 className="" style={{color:"white", fontWeight:"bolder", textShadow:"3px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000"}}>Total Profit:{totalProfit.toFixed(3)}</h2>
+                  <h4 className="mb-3 mb-md-4" style={{ color: "blue" }}>
+                    Total Stock Holdings:&#8377;{totalHoldings.toFixed(3)}
+                  </h4>
+
+                  <h4 className="" style={{ color: "red" }}>
+                    Total Cost:{totalCost}
+                  </h4>
+                  <h2
+                    className=""
+                    style={{
+                      color: "white",
+                      fontWeight: "bolder",
+                      textShadow:
+                        "3px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000",
+                    }}
+                  >
+                    Total Profit:{totalProfit.toFixed(3)}
+                  </h2>
                 </div>
-                
               </div>
               <div className="row my-5 mx-5">
                 <a
-                className="text-white"
-                style={{ textDecoration: "none" }}
-                href="/Addstock"
-              >
-                <button className="add-new-stock-button text-center " style={{width:"700px"}}>
-                  {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS02tDQ_oyhxmlewJOslM5W2xNIsnJCAvn3xAOMrZVHSSOBHmiRs16KhJoypre7g6xdkTA&usqp=CAU" style={{width:"70px",height:"50px"}} alt="" /> */}
-                  Add Stock</button>
-              </a>
-                </div>
+                  className="text-white"
+                  style={{ textDecoration: "none" }}
+                  href="/Addstock"
+                >
+                  <button
+                    className="add-new-stock-button text-center "
+                    style={{ width: "700px" }}
+                  >
+                    {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS02tDQ_oyhxmlewJOslM5W2xNIsnJCAvn3xAOMrZVHSSOBHmiRs16KhJoypre7g6xdkTA&usqp=CAU" style={{width:"70px",height:"50px"}} alt="" /> */}
+                    Add Stock
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
-         
         </div>
-
-)}
-</div>
-
+      )}
+    </div>
   );
 }
 

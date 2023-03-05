@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./StockData.css";
-import refresh from './refresh.png'
+import refresh from "./refresh.png";
 
 export default function StockList() {
   const [stocks, setStocks] = useState([]);
@@ -43,62 +43,72 @@ export default function StockList() {
   const topLosers = sortedStocks.slice(-5).reverse();
 
   return (
-    <div className="TopGainerPage">
-      <button onClick={handleRefreshClick} className="rounded-circle mx-5"><img src={refresh} alt="" className="refreshButtonImage rounded-circle"/></button>
-      <div className="row px-5 py-3">
+    <div className="TopGainerPage container-fluid">
+      <button onClick={handleRefreshClick} className="rounded-circle mx-5">
+        <img
+          src={refresh}
+          alt=""
+          className="refreshButtonImage rounded-circle"
+        />
+      </button>
+      <div className="row px-3 py-3">
         <h1>TOP GAINERS</h1>
-        <table className="TopGainerTable">
-          <thead>
-            <tr className="TopGainerHead">
-              <th className="bg-success text-white p-3">Symbol</th>
-              <th className="bg-success text-white">Open</th>
-              <th className="bg-success text-white">High</th>
-              <th className="bg-success text-white">Low</th>
-              <th className="bg-success text-white">Value</th>
-              <th className="bg-success text-white">%Change</th>
-            </tr>
-          </thead>
-          <tbody className="p-3">
-            {topGainers.map((topGainer, index) => (
-              <tr key={index}>
-                <td className="p-3">{topGainer.symbol}</td>
-                <td>&#8377;{topGainer.open}</td>
-                <td>&#8377;{topGainer.dayHigh}</td>
-                <td>&#8377;{topGainer.dayLow}</td>
-                <td>&#8377;{topGainer.lastPrice}</td>
-                <td className="text-success">{topGainer.pChange}%</td>
+        <div className="table-responsive">
+          <table className="TopGainerTable">
+            <thead>
+              <tr className="TopGainerHead">
+                <th className="bg-success text-white p-3">Symbol</th>
+                <th className="bg-success text-white">Open</th>
+                <th className="bg-success text-white">High</th>
+                <th className="bg-success text-white">Low</th>
+                <th className="bg-success text-white">Value</th>
+                <th className="bg-success text-white">%Change</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="p-3">
+              {topGainers.map((topGainer, index) => (
+                <tr key={index}>
+                  <td className="p-3">{topGainer.symbol}</td>
+                  <td>&#8377;{topGainer.open}</td>
+                  <td>&#8377;{topGainer.dayHigh}</td>
+                  <td>&#8377;{topGainer.dayLow}</td>
+                  <td>&#8377;{topGainer.lastPrice}</td>
+                  <td className="text-success">{topGainer.pChange}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div className="row p-5">
+      <div className="row px-3 p-5">
         <h1>TOP LOSERS</h1>
-        <table className="TopGainerTable">
-          <thead>
-            <tr>
-              <th className="bg-danger text-white p-3">Symbol</th>
-              <th className="bg-danger text-white">Open</th>
-              <th className="bg-danger text-white">High</th>
-              <th className="bg-danger text-white">Low</th>
+        <div className="table-responsive">
+          <table className="TopGainerTable">
+            <thead>
+              <tr>
+                <th className="bg-danger text-white p-3">Symbol</th>
+                <th className="bg-danger text-white">Open</th>
+                <th className="bg-danger text-white">High</th>
+                <th className="bg-danger text-white">Low</th>
 
-            <th className="bg-danger text-white">Value</th>
-            <th className="bg-danger text-white">%Change</th>
-          </tr>
-        </thead>
-        <tbody className="p-3">
-          {topLosers.map((topLosers, index) => (
-            <tr key={index}>
-              <td className="p-3">{topLosers.symbol}</td>
-              <td>&#8377;{topLosers.open}</td>
-              <td>&#8377;{topLosers.dayHigh}</td>
-              <td>&#8377;{topLosers.dayLow}</td>
-              <td>&#8377;{topLosers.lastPrice}</td>
-              <td className="text-danger">{topLosers.pChange}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                <th className="bg-danger text-white">Value</th>
+                <th className="bg-danger text-white">%Change</th>
+              </tr>
+            </thead>
+            <tbody className="p-3">
+              {topLosers.map((topLosers, index) => (
+                <tr key={index}>
+                  <td className="p-3">{topLosers.symbol}</td>
+                  <td>&#8377;{topLosers.open}</td>
+                  <td>&#8377;{topLosers.dayHigh}</td>
+                  <td>&#8377;{topLosers.dayLow}</td>
+                  <td>&#8377;{topLosers.lastPrice}</td>
+                  <td className="text-danger">{topLosers.pChange}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
