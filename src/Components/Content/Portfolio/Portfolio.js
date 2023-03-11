@@ -34,18 +34,23 @@ function Portfolio() {
 
       const stockValues = await Promise.all(
         data.stocks.map(async (stock) => {
-          const response = await fetch(
-            `https://realstonks.p.rapidapi.com/${stock.company}`,
-            {
-              headers: {
-                "X-RapidAPI-Key":
-                  "2be1de11d0msh58feda7445d3b54p1b9fdbjsne738a62ed5e4",
-                "X-RapidAPI-Host": "realstonks.p.rapidapi.com",
-              },
-            }
-          );
-          const data = await response.json();
-          return data.price;
+          try {
+            const response = await fetch(
+              `https://realstonks.p.rapidapi.com/${stock.company}`,
+              {
+                headers: {
+                  "X-RapidAPI-Key":
+                    "2be1de11d0msh58feda7445d3b54p1b9fdbjsne738a62ed5e4",
+                  "X-RapidAPI-Host": "realstonks.p.rapidapi.com",
+                },
+              }
+            );
+            const data = await response.json();
+            return data.price;
+          } catch (error) {
+            console.error(error);
+            return null; // or set a default value, like 0
+          }
         })
       );
       setStockValues(stockValues);
@@ -79,13 +84,13 @@ function Portfolio() {
   return (
     <div className="mainpage">
       {user && (
-        <div className="p-3 p-md-5">
-          <div className="row personalinfo mb-4 mb-md-5">
-            <div className="col-12 col-md-8">
+        <div className="p-3  mx-3">
+          <div className="row personalinfo ">
+            <div className="col-lg-6">
               <h2 className="YourName">{user.user.name}</h2>
               <p>{user.user.email}</p>
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col-lg-6">
               <button
                 className="logout-button btn btn-outline-light"
                 onClick={handleLogout}
@@ -96,8 +101,8 @@ function Portfolio() {
           </div>
 
           <div className="row stocks">
-            <div className="col-12 col-md-8">
-              <h2 className="mt-4 mb-3 mb-md-4" style={{ fontWeight: "bold" }}>
+            <div className="col">
+              <h2 className="mt-4 mb-3 " style={{ fontWeight: "bold" }}>
                 STOCK HOLDINGS
               </h2>
               <div className="table-responsive">
@@ -122,12 +127,19 @@ function Portfolio() {
                         <td>&#8377;{stock.VOP}</td>
                         <td>
                           &#8377;
-                          {stockValues[index] && stockValues[index].toFixed(3)}
+                          {stockValues[index] ? (
+                            stockValues[index].toFixed(3)
+                          ) : (
+                            <p>Loading.....</p>
+                          )}
                         </td>
                         <td>
                           &#8377;
-                          {stockValues[index] &&
-                            (stock.stockVolume * stockValues[index]).toFixed(3)}
+                          {stockValues[index] ? (
+                            (stock.stockVolume * stockValues[index]).toFixed(3)
+                          ) : (
+                            <p>Loading-------</p>
+                          )}
                         </td>
 
                         {/*DELETE BUTTON BEGIN ................................................................... */}
@@ -165,7 +177,7 @@ function Portfolio() {
               </div>
               {/*Table of the user stock holdings  END...............................................*/}
             </div>
-            <div className="col-12 col-md-4">
+            <div className="col">
               <div className="container valuestack">
                 <div className="row">
                   <h4 className="mb-3 mb-md-4" style={{ color: "blue" }}>
@@ -196,7 +208,7 @@ function Portfolio() {
                 >
                   <button
                     className="add-new-stock-button text-center "
-                    style={{ width: "700px" }}
+                    style={{ width: "100%" }}
                   >
                     {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS02tDQ_oyhxmlewJOslM5W2xNIsnJCAvn3xAOMrZVHSSOBHmiRs16KhJoypre7g6xdkTA&usqp=CAU" style={{width:"70px",height:"50px"}} alt="" /> */}
                     Add Stock

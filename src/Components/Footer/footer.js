@@ -1,42 +1,62 @@
 import React, { Component } from "react";
 import "./footer.css";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-export default function footer() {
+export default function Footer() {
+  localStorage.getItem("token");
+
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    var token = localStorage.getItem("token") ?? "";
+    if (token.length > 5) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
+  }, []);
+
   return (
     <div className="footer-basic">
       <footer>
-        <div class="social">
+        <div className="social">
           <a href="#">
-            <i class="icon ion-social-instagram"></i>
+            <i className="icon ion-social-instagram"></i>
           </a>
           <a href="#">
-            <i class="icon ion-social-snapchat"></i>
+            <i className="icon ion-social-snapchat"></i>
           </a>
           <a href="#">
-            <i class="icon ion-social-twitter"></i>
+            <i className="icon ion-social-twitter"></i>
           </a>
           <a href="#">
-            <i class="icon ion-social-facebook"></i>
+            <i className="icon ion-social-facebook"></i>
           </a>
         </div>
-        <ul class="list-inline">
-          <li class="list-inline-item">
+        <ul className="list-inline">
+          <li className="list-inline-item">
             <a href="/">Home</a>
           </li>
-          <li class="list-inline-item">
-            <a href="/profile">profile</a>
+          <li className="list-inline-item">
+            <Link
+              className="nav-link"
+              to={isLoggedIn ? "/profile" : "/register"}
+            >
+              profile
+            </Link>
           </li>
-          <li class="list-inline-item">
+          <li className="list-inline-item">
             <a href="/about">About</a>
           </li>
-          <li class="list-inline-item">
+          <li className="list-inline-item">
             <a href="#">Terms</a>
           </li>
-          <li class="list-inline-item">
+          <li className="list-inline-item">
             <a href="#">Privacy Policy</a>
           </li>
         </ul>
-        <p class="copyright">INED © 2023</p>
+        <p className="copyright">INED © 2023</p>
       </footer>
     </div>
   );

@@ -53,7 +53,7 @@ export default function StockList() {
       </button>
       <div className="row px-3 py-3">
         <h1>TOP GAINERS</h1>
-        <div className="table-responsive">
+        <div className="table-responsive ">
           <table className="TopGainerTable">
             <thead>
               <tr className="TopGainerHead">

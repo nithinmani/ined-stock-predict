@@ -1,62 +1,59 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axios from "axios";
 import "./ForgotPassword.css";
 
-export default function ForgotPassword() {
-  const navigate = useNavigate();
+const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const url = `http://localhost:1337/api/password-reset`;
+      const { data } = await axios.post(url, { email });
+      setMsg(data.message);
+      setError("");
+    } catch (error) {
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        setError(error.response.data.message);
+        setMsg("");
+      }
+    }
+  };
+
   return (
-    <div>
-      <div className="row p-5 justfy-content-center align-items-center">
-        <div className="col-lg-8 px-5 py-3">
-          <img
-            src="https://img.freepik.com/free-vector/forgot-password-concept-illustration_114360-1123.jpg?w=740&t=st=1677943224~exp=1677943824~hmac=0fcf2424cbba364c1e5977de5008e6db6254ba33605254cd7453351884a64781"
-            alt="forgot password"
-          />
-        </div>
-        <div className="col forgotField">
-          <h1>Forgot Password?</h1>
-          <label className="pt-5" style={{ fontSize: "30px" }}>
-            Enter your email id
-          </label>
-          <br />
-          <input
-            type="email"
-            className="mt-3 "
-            style={{ width: "400px", borderRadius: "20px", height: "50px" }}
-          />
-          <br />
-          <button
-            className="mt-3 p-3 bg-success"
-            style={{ borderRadius: "10px" }}
-          >
-            Send verification code
-          </button>
-          <br />
-          <label className="pt-5" style={{ fontSize: "30px" }}>
-            Enter the code
-          </label>
-          <br />
-          <input
-            type="number"
-            className="px-5"
-            style={{
-              width: "400px",
-              borderRadius: "20px",
-              height: "50px",
-              fontSize: "20px",
-            }}
-          />
-          <br />
-          <a href="/login">I want to sign in?</a>
-          <br />
-          <button
-            className="m-3 p-3 px-5 bg-success"
-            style={{ borderRadius: "10px" }}
-          >
-            Verify
-          </button>
-        </div>
+    <div className="Forgotcontainer">
+      <div className="row">
+        {/* <div className="col">
+          <img src="https://img.freepik.com/free-photo/computer-security-with-login-password-padlock_107791-16191.jpg?w=900&t=st=1678531671~exp=1678532271~hmac=e1a83d08ce3c15efb90cf6e7948d5a86dcff693ac091950e06eb174783656a1c" alt="" />
+        </div> */}
+        <div className="col">
+      <form className="Forgotform_container" onSubmit={handleSubmit}>
+        <h1>Forgot Password</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
+          required
+          className="Forgotinput"
+        />
+        {error && <div className="Forgoterror_msg">{error}</div>}
+        {msg && <div className="Forgotsuccess_msg">{msg}</div>}
+        <button type="submit" className="Forgotgreen_btn">
+          Submit
+        </button>
+      </form>
+      </div>
       </div>
     </div>
   );
-}
+};
+
+export default ForgotPassword;
