@@ -9,7 +9,7 @@ import NoviceInvester from "./NoviceInvester/NoviceInvester";
 import sample from "./sample.mp4";
 import "./Home.css";
 import CompanyPage from "../CompanyPage/CompanyPage";
-import HOMEIMG from "./HOMEIMG1.png"
+import HOMEIMG from "./HOMEIMG1.png";
 
 function Home() {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function Home() {
 
   function handleClick() {
     console.log(selectedOption);
-    const myElement = <CompanyPage company={selectedOption.value} />;
+    navigate(`/company/${selectedOption.value}`);
   }
 
   return (
@@ -83,10 +83,10 @@ function Home() {
         </div>
       </div>
       <div className="row">
-        <Features/>
+        <Features />
       </div>
       <div className="row mb-2">
-        <NoviceInvester/>
+        <NoviceInvester />
       </div>
       <div className="row">
         <div className="col-lg-6 mb-3">
