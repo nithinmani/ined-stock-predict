@@ -12,6 +12,9 @@ import { useState, createContext } from "react";
 import ForgotPassword from "./Components/Content/ForgotPassword/ForgotPassword";
 import ResetPassword from "./Components/Content/ResetPassword/ResetPassword";
 import CompanyPage from "./Components/Content/CompanyPage/CompanyPage";
+import VerifyEmail from "./Components/Content/EmailVerify/EmailVerify";
+import EmailVerify from "./Components/Content/EmailVerify/EmailVerify";
+
 export const AppContext = createContext();
 
 function App() {
@@ -30,8 +33,12 @@ function App() {
             <Route path="/Addstock" element={<Addstock />} />
             <Route path="Tutorial" element={<Tutorial />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Route
+              path="/password-reset/:id/:token"
+              element={<ResetPassword />}
+            />
             <Route path="/company/:name" element={<CompanyPage />} />
+            <Route path="/verify/:id/:token" element={<EmailVerify />} />
           </Routes>
         </div>
         <Footer />

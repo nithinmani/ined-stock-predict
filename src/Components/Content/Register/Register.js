@@ -70,14 +70,14 @@ function Register() {
     const data = await response.json();
     console.log(data);
 
-    if (data.status === "ok") {
-      navigate("/login");
-    } else if (data.error === "Duplicate email") {
-      // check for duplicate email error
-      setErrorMessage("An account with this email already exists");
-    } else {
-      setErrorMessage("Registration failed, please try again later");
-    }
+    if (
+      data ===
+      "An email has been sent to your account. Please verify your email address."
+    ) {
+      setErrorMessage(
+        "An email has been sent to your account. Please verify your email address."
+      );
+    } else setErrorMessage("Already Registered");
   }
 
   return (

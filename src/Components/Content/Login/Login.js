@@ -61,6 +61,10 @@ function Login() {
       setPasswordError("Password is incorrect.");
       return;
     }
+    if (data.error === "Not Verified") {
+      setEmailError("Email Not Verified!!!Email has been sent..please verify");
+      return;
+    }
 
     if (data.user) {
       localStorage.setItem("token", data.user);

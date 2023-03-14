@@ -43,7 +43,7 @@ export default function Footer() {
               className="nav-link"
               to={isLoggedIn ? "/profile" : "/register"}
             >
-              profile
+              Profile
             </Link>
           </li>
           <li className="list-inline-item">

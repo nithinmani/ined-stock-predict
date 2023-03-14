@@ -9,7 +9,7 @@ const PasswordReset = () => {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
   const param = useParams();
-  const url = `http://localhost:8080/api/password-reset/${param.id}/${param.token}`;
+  const url = `http://localhost:1337/api/password-reset/${param.id}/${param.token}`;
 
   useEffect(() => {
     const verifyUrl = async () => {
@@ -43,7 +43,7 @@ const PasswordReset = () => {
   };
 
   return (
-    <Fragment>
+    <>
       {validUrl ? (
         <div className="Resetcontainer">
           <form className="Resetform_container" onSubmit={handleSubmit}>
@@ -67,7 +67,7 @@ const PasswordReset = () => {
       ) : (
         <h1>404 Not Found</h1>
       )}
-    </Fragment>
+    </>
   );
 };
 

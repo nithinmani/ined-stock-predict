@@ -14,10 +14,15 @@ import HOMEIMG from "./HOMEIMG1.png";
 function Home() {
   const navigate = useNavigate();
   const [token, setToken] = useState("");
+  const [isLoggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    setToken(token);
+    var token = localStorage.getItem("token") ?? "";
+    if (token.length > 5) {
+      setLoggedIn(true);
+    } else {
+      setLoggedIn(false);
+    }
   }, []);
 
   const [selectedOption, setSelectedOption] = useState();
