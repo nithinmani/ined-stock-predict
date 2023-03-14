@@ -10,7 +10,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = `http://localhost:1337/api/password-reset`;
+      const url = `https://inedserver.up.railway.app/api/password-reset`;
       const { data } = await axios.post(url, { email });
       setMsg(data.message);
       setError("");

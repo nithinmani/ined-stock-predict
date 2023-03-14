@@ -14,13 +14,16 @@ function Addstock() {
       const token = localStorage.getItem("token");
       setToken(token);
       try {
-        const response = await fetch("http://localhost:1337/api/get-user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token,
-          },
-        });
+        const response = await fetch(
+          "https://inedserver.up.railway.app/api/get-user",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "x-access-token": token,
+            },
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           setUser(data);
@@ -55,19 +58,22 @@ function Addstock() {
     const company = data.company;
 
     try {
-      const response = await fetch("http://localhost:1337/api/add-stock", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": token,
-        },
-        body: JSON.stringify({
-          DOP,
-          VOP,
-          stockVolume,
-          company,
-        }),
-      });
+      const response = await fetch(
+        "https://inedserver.up.railway.app/api/add-stock",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+          body: JSON.stringify({
+            DOP,
+            VOP,
+            stockVolume,
+            company,
+          }),
+        }
+      );
       if (response.ok) {
         const data1 = await response.json();
         console.log(data1);

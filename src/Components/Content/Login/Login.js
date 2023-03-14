@@ -40,16 +40,19 @@ function Login() {
       return;
     }
 
-    const response = await fetch("http://localhost:1337/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
+    const response = await fetch(
+      "https://inedserver.up.railway.app/api/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
 
     const data = await response.json();
     if (data.error === "Invalid login") {

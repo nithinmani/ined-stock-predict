@@ -23,7 +23,7 @@ function Portfolio() {
     const token = localStorage.getItem("token");
     setToken(token);
     try {
-      const response = await fetch("http://localhost:1337/api/get-user", {
+      const response = await fetch("https://inedserver.up.railway.app/api/get-user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -32,9 +32,9 @@ function Portfolio() {
       });
       const data = await response.json();
       setUser(data);
-
+      
       const stockValues = await Promise.all(
-        data.stocks.map(async (stock) => {
+        data.stocks?.map(async (stock) => {
           try {
             const response = await fetch(
               `https://realstonks.p.rapidapi.com/${stock.company}`,
@@ -88,8 +88,8 @@ function Portfolio() {
         <div className="p-3 mx-3">
           <div className="row personalinfo " style={{ borderRadius: "20px" }}>
             <div className="col">
-              <h2 className="YourName">{user.user.name}</h2>
-              <p>{user.user.email}</p>
+              <h2 className="YourName">{user.user?.name}</h2>
+              <p>{user.user && user.user.email}</p>
             </div>
             <div className="col">
               <button
@@ -123,7 +123,7 @@ function Portfolio() {
                     </tr>
                   </thead>
                   <tbody style={{ fontSize: "0.8rem" }}>
-                    {user.stocks.map((stock, index) => (
+                    {user?.stocks?.map((stock, index) => (
                       <tr key={index}>
                         <td>{stock.company}</td>
                         <td>{stock.stockVolume}</td>
@@ -154,7 +154,7 @@ function Portfolio() {
                             onClick={async () => {
                               console.log(stock.stockId);
                               const response = await fetch(
-                                "http://localhost:1337/api/delete",
+                                "https://inedserver.up.railway.app/api/delete",
                                 {
                                   method: "POST",
                                   headers: {

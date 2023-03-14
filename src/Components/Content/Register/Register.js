@@ -55,17 +55,20 @@ function Register() {
       return;
     }
 
-    const response = await fetch("http://localhost:1337/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
+    const response = await fetch(
+      "https://inedserver.up.railway.app/api/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      }
+    );
 
     const data = await response.json();
     console.log(data);

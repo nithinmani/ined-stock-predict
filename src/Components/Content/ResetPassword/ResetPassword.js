@@ -9,7 +9,7 @@ const PasswordReset = () => {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
   const param = useParams();
-  const url = `http://localhost:1337/api/password-reset/${param.id}/${param.token}`;
+  const url = `https://inedserver.up.railway.app/api/password-reset/${param.id}/${param.token}`;
 
   useEffect(() => {
     const verifyUrl = async () => {
