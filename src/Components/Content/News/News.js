@@ -21,7 +21,7 @@ export default function News() {
         };
 
         let response = await fetch(
-          "https://bloomberg-market-and-financial-news.p.rapidapi.com/news/list?id=markets",
+          "https://bb-finance.p.rapidapi.com/news/list-by-region?id=asia-home-v3",
           options
         );
         const data = await response.json();
@@ -59,11 +59,12 @@ export default function News() {
             </div>
             <div className="col-lg-5 p-2">
               <a href={news.modules[2].stories[3].shortURL}>
-              <img className="shadow-lg"
-                src={news.modules[2].stories[3].thumbnailImage}
-                alt=""
-                style={{ width: "30vh", borderRadius: "10px" }}
-              />
+                <img
+                  className="shadow-lg"
+                  src={news.modules[2].stories[3].thumbnailImage}
+                  alt=""
+                  style={{ width: "30vh", borderRadius: "10px" }}
+                />
               </a>
             </div>
           </div>
@@ -87,11 +88,11 @@ export default function News() {
             </div>
             <div className="col-lg-5 p-2">
               <a href={news.modules[2].stories[0].shortURL}>
-              <img 
-                src={news.modules[2].stories[0].thumbnailImage}
-                alt=""
-                style={{ width: "30vh", borderRadius: "10px" }}
-              />
+                <img
+                  src={news.modules[2].stories[0].thumbnailImage}
+                  alt=""
+                  style={{ width: "30vh", borderRadius: "10px" }}
+                />
               </a>
             </div>
           </div>
@@ -115,11 +116,11 @@ export default function News() {
             </div>
             <div className="col-lg-5 p-2">
               <a href={news.modules[2].stories[2].shortURL}>
-              <img
-                src={news.modules[2].stories[2].thumbnailImage}
-                alt=""
-                style={{ width: "30vh", borderRadius: "10px" }}
-              />
+                <img
+                  src={news.modules[2].stories[2].thumbnailImage}
+                  alt=""
+                  style={{ width: "30vh", borderRadius: "10px" }}
+                />
               </a>
             </div>
           </div>
@@ -127,4 +128,4 @@ export default function News() {
       </motion.div>
     </div>
   );
-        }
+}

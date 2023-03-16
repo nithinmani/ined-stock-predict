@@ -49,7 +49,7 @@
     height: 100%;
 }
 .leftHome{
-    background-image: linear-gradient(to top, #0a0120, #030109);
+    background-image: linear-gradient(to top, #090417, #030109);
 }
 
 
@@ -71,7 +71,7 @@
   }
 
 .Homerow{
-    background-image: linear-gradient(to top, #0a0120, #030109);
+    background-image: linear-gradient(to top, #090417, #030109);
 }
   /* @media (max-width: 800px) {
     .videoTag {

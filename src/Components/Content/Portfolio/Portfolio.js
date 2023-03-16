@@ -4,6 +4,7 @@ import { json, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../App";
 import "./Portfolio.css";
 import ADD from './ADD.png';
+import profile from './profile.png';
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -86,10 +87,18 @@ function Portfolio() {
     <div className="mainpage justify-content-center">
       {user && (
         <div className="p-3 mx-3">
-          <div className="row personalinfo " style={{ borderRadius: "20px" }}>
-            <div className="col">
+          <div className="row  " >
+            <div className="col-lg-4 p-3 personalinfo" style={{ borderRadius: "20px" }}>
+              <div className="row">
+              <div className="col-lg-4">
+                <img src={profile} alt="" style={{width:"100%"}}/>
+              </div>
+                <div className="col-lg-8 text-center portfolioNameBox">
               <h2 className="YourName">{user.user?.name}</h2>
-              <p>{user.user && user.user.email}</p>
+              <p>{user?.user.email}</p>
+              </div>
+             
+              </div>
             </div>
             <div className="col">
               <button
@@ -97,15 +106,45 @@ function Portfolio() {
                 onClick={handleLogout}
               >
                 Log Out
-              </button>
-            </div>
+              </button> 
+              </div>
+            
           </div>
+          <div className="row">
+  <div className="col">
+    <div className="row valuestack p-3 px-5 my-4">
+      <div className="col-4">
+        <h5 className="value-label">&#8377;{totalHoldings.toFixed(3)}</h5>
+        <p>Total Stock Holdings</p>
+      </div>
+      <div className="col-4">
+        <h5 className="value-label">&#8377;{totalCost}</h5>
+        <p>Total Cost</p>
+      </div>
+      <div className="col-4">
+        <h5 className="value-label">&#8377;{totalProfit.toFixed(3)}</h5>
+        <p>Total Profit</p>
+      </div>
+    </div>
+  </div>
+  <div className="col-lg-2">
+    <div className="row">
+      <div className="col-lg-3 my-4">
+        <a className="addStockLink" href="/Addstock">
+          <img src={ADD} alt="Add stock" style={{width:"50px",display: "inline-block"}}/>
+          <p className="text-black PortaddStock" style={{display: "inline-block"}}>ADD STOCK</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
           <div className="row stocks ">
-            <div className="col-lg-4 my-4">
+            <div className="col-lg-4 my-2">
               <img style={{"width":"100%"}} src="https://img.freepik.com/free-vector/personal-site-concept-illustration_114360-2577.jpg?w=740&t=st=1678614469~exp=1678615069~hmac=4e0ac608c442e54921ce925c9502c0ae94a104d8b72bc69286ea4a827edfb21b" alt="" />
             </div>
-            <div className="col  my-4">
+            <div className="col  my-2">
               <h2 className="mt-4 mb-3 " style={{ fontWeight: "bold" }}>
                 STOCK HOLDINGS
               </h2>
@@ -183,46 +222,17 @@ function Portfolio() {
             </div>
             
           </div>
-          <div className="row">
-          <div className="container valuestack p-3 px-5">
-                <div className="row">
-                  <div className="col">
-                  <h4 className="" style={{ color: "blue" }}>
-                    Total Stock Holdings: &#8377;{totalHoldings.toFixed(3)}
-                  </h4>
-                  <h4 className="" style={{ color: "red" }}>
-                    Total Cost: &#8377;{totalCost}
-                  </h4>
-                  <h2
-                    className=""
-                    style={{
-                      color: "black",
-                    }}
-                  >
-                    Total Profit: &#8377;{totalProfit.toFixed(3)}
-                  </h2>
-                  </div>
-                  <div className="col-lg-4 my-4">
-             
-             <div className="row text-center">
-               <a
-                 className="text-white "
-                 style={{ textDecoration: "none" }}
-                 href="/Addstock"
-               >
-                 <button
-                   className="add-new-stock-button text-center "
-                 >
-                   <img src={ADD} style={{width:"80px",height:"70px"}} alt="" />
-                  
-                 </button>
-               </a>
-             </div>
-           </div>
-                </div>
-              </div>
+
+
+          
+         
+     
+         
+         
+         
+            
           </div>
-        </div>
+        
       )}
     </div>
   );

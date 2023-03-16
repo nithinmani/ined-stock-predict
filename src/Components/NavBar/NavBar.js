@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./NavBar.css";
 import INEDLOGO from "./INED LOGO3.png";
-import profile from "./profile logo.png";
+import profile from "./profile.png";
 import { Link } from "react-router-dom";
 
 function NavBar() {
