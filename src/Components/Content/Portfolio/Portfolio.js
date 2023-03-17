@@ -127,15 +127,13 @@ function Portfolio() {
       </div>
     </div>
   </div>
-  <div className="col-lg-2">
-    <div className="row">
-      <div className="col-lg-3 my-4">
+  <div className="col-lg-2 text-center ">
+    <div className="row text-center ">
         <a className="addStockLink" href="/Addstock">
           <img src={ADD} alt="Add stock" style={{width:"50px",display: "inline-block"}}/>
           <p className="text-black PortaddStock" style={{display: "inline-block"}}>ADD STOCK</p>
         </a>
       </div>
-    </div>
   </div>
 </div>
 
