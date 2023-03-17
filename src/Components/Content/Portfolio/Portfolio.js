@@ -127,11 +127,11 @@ function Portfolio() {
       </div>
     </div>
   </div>
-  <div className="col-lg-2 text-center ">
-    <div className="row text-center ">
+  <div className="col-lg-2 d-flex align-items-center justify-content-center ">
+    <div className="row ">
         <a className="addStockLink" href="/Addstock">
-          <img src={ADD} alt="Add stock" style={{width:"50px",display: "inline-block"}}/>
-          <p className="text-black PortaddStock" style={{display: "inline-block"}}>ADD STOCK</p>
+          <img src={ADD} alt="Add stock" style={{width:"50px",display: "inline-block"}}/> 
+          <p className="text-black PortaddStock mx-3 my-2" style={{display: "inline-block"}}> ADD STOCK</p>
         </a>
       </div>
   </div>
@@ -147,7 +147,7 @@ function Portfolio() {
                 STOCK HOLDINGS
               </h2>
               <div className="table-responsive border bg-black" style={{borderRadius:"20px"}}>
-                <table className="table table-dark">
+                <table className="table table-black text-white">
                   <thead className="thead-light " style={{ fontSize: "1rem" }}>
                     <tr className="portfolioTableTitles">
                       <th scope="col">Company</th>
