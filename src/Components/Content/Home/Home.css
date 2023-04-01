@@ -48,12 +48,7 @@
    
     height: 100%;
 }
-.leftHome{
-    background-image: linear-gradient(to top, #090417, #030109);
-}
 
-
- 
   .homefirst{
     margin: 0;
   }
@@ -71,10 +66,5 @@
   }
 
 .Homerow{
-    background-image: linear-gradient(to top, #090417, #030109);
+    background-image: linear-gradient(to top, #031725, #080404);
 }
-  /* @media (max-width: 800px) {
-    .videoTag {
-      display: none;
-    }
-  } */

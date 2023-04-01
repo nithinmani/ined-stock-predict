@@ -1,5 +1,6 @@
 import React from "react";
 import "./Features.css";
+import Earth from "./Earth.png";
 
 function Features() {
   return (
@@ -70,11 +71,7 @@ function Features() {
           </div>
         </div>
         <div className="col">
-          <img
-            className=" ml-5"
-            src="https://portal.tradebrains.in/static/media/globe-theme.a1d4c46fffda951648a4.png"
-            alt="earth"
-          />
+          <img className=" ml-5" src={Earth} alt="earth" />
         </div>
       </div>
     </div>

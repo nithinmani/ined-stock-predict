@@ -146,8 +146,8 @@ function Portfolio() {
               <h2 className="mt-4 mb-3 " style={{ fontWeight: "bold" }}>
                 STOCK HOLDINGS
               </h2>
-              <div className="table-responsive border bg-black" style={{borderRadius:"20px"}}>
-                <table className="table table-black text-white">
+              <div className="table-responsive border " style={{borderRadius:"20px"}}>
+                <table className="table portTable text-white">
                   <thead className="thead-light " style={{ fontSize: "1rem" }}>
                     <tr className="portfolioTableTitles">
                       <th scope="col">Company</th>

@@ -28,8 +28,8 @@ function Home() {
   const [selectedOption, setSelectedOption] = useState();
   const optionList = [
     { value: "TCS", label: "TCS" },
-    { value: "TATAMOTORS", label: "TATA MOTORS" },
-    { value: "ICICIBANK", label: "ICICI BANK" },
+    { value: "tsla", label: "Tesla" },
+    { value: "MSFT", label: "Microsoft" },
     { value: "ASIANPAINT", label: "ASIAN PAINTS" },
     { value: "AAPL", label: "Apple" },
   ];
@@ -44,7 +44,7 @@ function Home() {
   }
 
   return (
-    <div className="HomePage container-fluid">
+    <div className="HomePage ">
       <div
         className="row Homerow"
         style={{ minHeight: "200px", maxHeight: "calc(100vh - 56px)" }}
@@ -94,10 +94,10 @@ function Home() {
         <NoviceInvester />
       </div>
       <div className="row">
-        <div className="col-lg-6 mb-3">
+        <div className="col-sm-6 col-md-6 col-lg-6 mb-3">
           <StockData />
         </div>
-        <div className="col-lg-6 mb-3">
+        <div className="col-sm-6 col-md-6 col-lg-6 mb-3">
           <News />
         </div>
       </div>

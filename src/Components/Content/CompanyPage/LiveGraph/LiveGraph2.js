@@ -1,72 +1,53 @@
-// install (please make sure versions match peerDependencies)
-// yarn add @nivo/core @nivo/line
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { ResponsiveLine } from "@nivo/line";
-import { Dropdown } from "bootstrap";
-import Select from "react-select";
-import { useState } from "react";
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-import React from "react";
+export default function LiveGraph2({ name }) {
+  const [data, setData] = useState([]);
 
-function Prediction() {
-  const [flag,setFlag]=useState(false);
-  const [selectedOption, setSelectedOption] = useState();
-  const [result,setResult] = useState();
-  const optionList = [
-    { value: "1 month", label: "1 month" },
-    { value: "1 day", label: "1 day" },
-    { value: "1 year", label: "1 year " },
-    
-  ];
-  
-async function handlePredict(){
-try{
-  const mlResponse = await fetch("http://localhost:5000/ml");
-        const mlData = await mlResponse.json();
-        setResult(mlData);
-        setFlag(true);
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      url: "https://twelve-data1.p.rapidapi.com/time_series",
+      params: {
+        symbol: `${name}`,
+        interval: "1week",
+        outputsize: "90",
+        format: "json",
+      },
+      headers: {
+        "X-RapidAPI-Key": "2be1de11d0msh58feda7445d3b54p1b9fdbjsne738a62ed5e4",
+        "X-RapidAPI-Host": "twelve-data1.p.rapidapi.com",
+      },
+    };
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.request(options);
+        setData(response.data.values);
       } catch (error) {
         console.error(error);
       }
-    }
+    };
+    fetchData();
+  }, []);
+
   return (
-    <>
-    <h2>Prediction in {selectedOption}</h2>
-    <div className="col">
-    <div className="dropdown-container">
-                <Select
-                  className="text-black"
-                  options={optionList}
-                  placeholder="Select period"
-                  value={selectedOption}
-                  onChange=""
-                  isSearchable={true}
-                />
-              </div>
-              </div>
-              <div className="col">
-                <button onClick={handlePredict}>Predict</button>
-              </div>
-              <div style={{ height: "500px" }}>
-      {
-      (flag&&result?.lst_output2?.length)?
-       <ResponsiveLine
+    <div style={{ height: "500px" }}>
+      {data.length ? (
+        <ResponsiveLine
           data={[
             {
-              id: "hi",
+              id: name,
               color: "hsl(80, 70%, 50%)",
-              data: result?.lst_output2?.map((value, index) => ({
-                x: index,
-                y: parseFloat(value),
+              data: data.map((item) => ({
+                x: item.datetime,
+                y: parseFloat(item.close),
               })),
             },
           ]}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-          xScale={{ type: "linear" }}
+          xScale={{ type: "time", format: "%Y-%m-%d" }}
           yScale={{
             type: "linear",
             min: "auto",
@@ -78,7 +59,7 @@ try{
           axisTop={null}
           axisRight={null}
           axisBottom={{
-            
+            format: "%b %d",
             tickValues: "every 2 month",
             orient: "bottom",
             tickSize: 5,
@@ -130,10 +111,9 @@ try{
             },
           ]}
         />
-       : <p>Loading data...</p>}
+      ) : (
+        <p>Loading data...</p>
+      )}
     </div>
-    </>
   );
 }
-
-export default Prediction;
