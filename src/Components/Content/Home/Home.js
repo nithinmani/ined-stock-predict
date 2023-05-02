@@ -27,11 +27,35 @@ function Home() {
 
   const [selectedOption, setSelectedOption] = useState();
   const optionList = [
-    { value: "TCS", label: "TCS" },
+    { value: "TCS.NS", label: "TCS" },
     { value: "tsla", label: "Tesla" },
     { value: "MSFT", label: "Microsoft" },
-    { value: "ASIANPAINT", label: "ASIAN PAINTS" },
+    { value: "ASIANPAINT.NS", label: "ASIAN PAINTS" },
+    { value: "ADANIENT.NS", label: "Adani Enterprises" },
     { value: "AAPL", label: "Apple" },
+    { value: "ADANIPORTS.NS", label: "Adani Ports & SEZ" },
+    { value: "APOLLOHOSP.NS", label: "Apollo Hospitals" },
+    { value: "ASIANPAINT.NS", label: "Asian Paints" },
+    { value: "AXISBANK.NS", label: "Axis Bank" },
+    { value: "BAJAJ-AUTO.NS", label: "Bajaj Auto" },
+    { value: "BAJFINANCE.NS", label: "Bajaj Finance" },
+    { value: "BAJAJFINSV.NS", label: "Bajaj Finserv" },
+    { value: "BPCL.NS", label: "Bharat Petroleum" },
+    { value: "BHARTIARTL.NS", label: "Bharti Airtel" },
+    { value: "BRITANNIA", label: "Britannia Industries" },
+    { value: "CIPLA.NS", label: "Cipla" },
+    { value: "COALINDIA.NS", label: "Coal India" },
+    { value: "DIVISLAB.NS", label: "Divi's Laboratories" },
+    { value: "HDFC.NS", label: "HDFC" },
+    { value: "HDFCBANK.NS", label: "HDFCBANK" },
+    { value: "ICICIBANK.NS", label: "ICICIBANK" },
+    { value: "INDUSINDBK.NS", label: "IndusInd Bank" },
+    { value: "HINDUNILVR.NS", label: "Hindustan Unilever" },
+    { value: "INFY.NS", label: "Infosys" },
+    { value: "ITC.NS", label: "ITC" },
+    { value: "JSWSTEEL.NS", label: "JSWSTEEL" },
+    { value: "KOTAKBANK.NS", label: "KOTAKBANK" },
+    { value: "LT.NS", label: "Larsen & Toubro" },
   ];
 
   function handleSelect(data) {
@@ -44,7 +68,7 @@ function Home() {
   }
 
   return (
-    <div className="HomePage ">
+    <div className="HomePage container-fluid">
       <div
         className="row Homerow"
         style={{ minHeight: "200px", maxHeight: "calc(100vh - 56px)" }}

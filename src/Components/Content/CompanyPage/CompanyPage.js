@@ -3,80 +3,65 @@ import React, { useState, useEffect } from "react";
 import LiveGraph from "./LiveGraph/LiveGraph";
 import Prediction from "./Prediction/Prediction";
 import "./CompanyPage.css";
-import LiveGraph2 from "./LiveGraph/LiveGraph2";
 import LSTMOutput from './LSTMOutput';
 import axios from 'axios';
+import Chart from 'chart.js';
+import Stockrec from "./stockrec";
+import StockChart from "./StockChart/StockChart";
+
 
 export default function CompanyPage() {
-  const [logo, setLogo] = useState({ url: "" });
-  const [profile, setProfile] = useState({
-    name: "",
-    CEO: "",
-    description: "",
-  });
-  const [results, setResults] = useState({});
-
+  const [liveData, setLiveData] = useState([]);
+  const [news, setNews] = useState([]);
+  const [dailyData, setDailyData] = useState([]);
   const { name } = useParams();
-
+  
   useEffect(() => {
     async function fetchData() {
       try {
-        const logoResponse = await fetch(
-          `https://twelve-data1.p.rapidapi.com/logo?symbol=${name}`,
-          {
-            method: "GET",
-            headers: {
-              "X-RapidAPI-Key": "2be1de11d0msh58feda7445d3b54p1b9fdbjsne738a62ed5e4",
-              "X-RapidAPI-Host": "twelve-data1.p.rapidapi.com",
-            },
-          }
-        );
-        const logoData = await logoResponse.json();
-        setLogo(logoData);
+        const [liveDataResponse, newsres, dailyDataResponse] = await Promise.all([
+          fetch(`http://127.0.0.1:5000/get_yahoo_finance_data/${name}`).then(res => res.json()),
+          fetch(`http://127.0.0.1:5000/api/news/${name}`).then(res => res.json()),
+          fetch(`http://127.0.0.1:5000/getDailydata/${name}`).then(res => res.json())
+        ]);
 
-        const profileResponse = await fetch(
-          `https://twelve-data1.p.rapidapi.com/profile?symbol=${name}`,
-          {
-            method: "GET",
-            headers: {
-              "X-RapidAPI-Key": "2be1de11d0msh58feda7445d3b54p1b9fdbjsne738a62ed5e4",
-              "X-RapidAPI-Host": "twelve-data1.p.rapidapi.com",
-            },
-          }
-        );
-        const profileData = await profileResponse.json();
-        setProfile(profileData);
+        setLiveData(liveDataResponse);
+        console.log(newsres)
+        setNews(newsres);
+        setDailyData(dailyDataResponse);
+        console.log(news)
+        console.log(dailyData)
 
-        const mlResponse = await fetch("http://localhost:5000/ml");
-        const mlData = await mlResponse.json();
-        setResults(mlData);
       } catch (error) {
         console.error(error);
       }
     }
+  
     fetchData();
+  
+    const intervalId = setInterval(fetchData, 1110015000); // Update every 15 seconds
+  
+    return () => {
+      clearInterval(intervalId); // Clean up the interval on component unmount
+    }
   }, [name]);
+  
+  // Render your components using liveData, news, and dailyData
+  
 
   return (
     <div className="companyPage">
       <div className="row p-5">
-        <div className="col-2">
-          <img
-            src={logo.url}
-            alt=""
-            style={{ height: "70%", width: "50%" }}
-          />
-        </div>
+        
         <div className="col-10">
-          <h1 className="">{profile?.name}</h1>
+          <h1 className="">{name}</h1>
         </div>
+        
         <div className="row">
-          <p>CEO: {profile?.CEO}</p>
+          <p>{liveData?.assetProfile?.longBusinessSummary}</p>
+          <p></p>
         </div>
-        <div className="row">
-          <p>{profile?.description}</p>
-        </div>
-        <div className="col-lg-8">
+        <div className="col-lg-7" >
           <div className="container-fluid">
             <div className="row">
               <div className="col">
@@ -85,10 +70,10 @@ export default function CompanyPage() {
                   className="card text-white bg-black mb-3"
                   style={{ maxWidth: "18rem" }}
                 >
-                  {/* <div className="card-header">Header</div> */}
+                  
                   <div className="card-body">
                     <h5 className="card-title">Today High</h5>
-                    <p className="card-text">{}</p>
+                    <p className="card-text">{liveData?.financialData?.financialCurrency+" "+dailyData?.price?.regularMarketDayHigh?.raw}</p>
                     
                   </div>
                 </div>
@@ -98,10 +83,10 @@ export default function CompanyPage() {
                   className="card text-white bg-black mb-3"
                   style={{ maxWidth: "18rem" }}
                 >
-                  {/* <div className="card-header">Header</div> */}
+                  
                   <div className="card-body">
                     <h5 className="card-title">Today Low</h5>
-                    <p className="card-text">{}</p>
+                    <p className="card-text">{liveData?.financialData?.financialCurrency+" "+dailyData?.price?.regularMarketDayLow?.raw}</p>
                   </div>
                 </div>
               </div>
@@ -110,10 +95,11 @@ export default function CompanyPage() {
                   className="card text-white bg-black mb-3"
                   style={{ maxWidth: "18rem" }}
                 >
-                  {/* <div className="card-header">Header</div> */}
+                  
                   <div className="card-body">
                     <h5 className="card-title">Value</h5>
-                    <p className="card-text">{}</p>
+                    <p className="card-text">{liveData?.financialData?.financialCurrency+" "+liveData?.financialData?.currentPrice.fmt
+}</p>
                   </div>
                 </div>
               </div>
@@ -121,9 +107,9 @@ export default function CompanyPage() {
 
 
 {/*LiveGraph..................................................................................................... */}
-            <div className="row bg-white p-3 " style={{ width: "100%", height: "600px",borderRadius:"20px" }}>
-              {/* <LiveGraph name={name} /> */}
-              <LiveGraph2 name={name}/>
+            <div className="row bg-white p-3 " style={{ width: "100%", height: "100%",borderRadius:"20px" }}>
+              <LiveGraph name={name}/>
+              
             </div>
 {/* LiveGraph end..................................................................................................... */}
 
@@ -132,55 +118,57 @@ export default function CompanyPage() {
           </div>
  
 {/* top high low value end..................................................................................................................... */}
-<div className="col-lg-4 bg-white p-3 " style={{borderRadius:"20px",boxShadow:"20px"}}>
-  <h3>Detailed Analysis</h3>
+<div className="col-lg-5 bg-white p-3 " style={{borderRadius:"20px",boxShadow:"20px"}}>
+  <h3 className="py-2">Detailed Analysis</h3>
   <div className="row">
           <div className="col mx-2 " >
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+                
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">currentRatio
+</h5>
+                <p className="card-text">{liveData?.financialData?.currentRatio
+.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+                
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">debtToEquity</h5>
+                  <p className="card-text">{liveData?.financialData?.debtToEquity.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+                
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">earningsGrowth</h5>
+                  <p className="card-text">{liveData?.financialData?.earningsGrowth.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+             
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">grossMargins</h5>
+                  <p className="card-text">{liveData?.financialData?.grossMargins.fmt}</p>
                 </div>
               </div>
             </div>
@@ -189,48 +177,48 @@ export default function CompanyPage() {
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+               
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">grossProfits</h5>
+                  <p className="card-text">{liveData?.financialData?.financialCurrency+" "+liveData?.financialData?.grossProfits.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+                
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">profitMargins</h5>
+                  <p className="card-text">{liveData?.financialData?.profitMargins.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+             
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">returnOnAssets</h5>
+                  <p className="card-text">{liveData?.financialData?.returnOnAssets.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
                 className="card text-white bg-black mb-3"
-                style={{ maxWidth: "18rem" }}
+                style={{ maxWidth: "13rem" }}
               >
-                {/* <div className="card-header">Header</div> */}
+                
                 <div className="card-body">
-                  <h5 className="card-title">Value</h5>
-                  <p className="card-text">2048.97</p>
+                  <h5 className="card-title">returnOnEquity</h5>
+                  <p className="card-text">{liveData?.financialData?.returnOnEquity.fmt}</p>
                 </div>
               </div>
             </div>
@@ -240,26 +228,52 @@ export default function CompanyPage() {
       </div>
       <div className="row mx-5 ">
         <div className="col">
-        <div className="row bg-white" style={{borderRadius:"20px", width:"400px", height:"300px"}}>
-            
+        <div className="row bg-white" style={{borderRadius:"20px", width:"400px", height:"265px"}}>
+          <h6>Recommendation</h6>
+        <Stockrec name={name}/>
             </div>
-            <div className="row bg-white my-3" style={{borderRadius:"20px", width:"400px", height:"300px"}}>
-            
+            <div className="row bg-white my-3" style={{borderRadius:"20px", width:"400px", height:"280px",paddingTop:"20px"}}>
+              <h3>Important values to note</h3>
+              <p><b>previousClose:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.previousClose?.raw} <br /><br />
+              <b>fiftyTwoWeekHigh:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.fiftyTwoWeekHigh?.raw} <br /><br />
+              <b>fiftyTwoWeekLow:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.fiftyTwoWeekLow?.raw}  <br /><br />
+              <b>regularMarketOpen:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.regularMarketOpen?.raw} <br /><br />
+              <b>volume:</b> {dailyData?.summaryDetail?.volume?.raw}</p>
+            {/* <h4>{news?.item[0]?.title}</h4>
+            <p>{news?.item[0]?.description}</p> */}
         </div>
         </div>
-        <div className="col-lg-8 p-3 bg-white" style={{ width: "70%", height: "70%",borderRadius:"20px" }}>
-       <Prediction />
-        </div>
-        <div className="row">
+        <div className="col-lg-8 p-3 bg-white" style={{ width: "70%", height: "560px",borderRadius:"20px",paddingTop:"20px", overflowY:"auto" }}>
         
-          <h2>Next 30 Days Predictions:</h2>
-          <ul>
-            {results?.lst_output2?.map((value, index) => (
-              <li key={index}>{value}</li>
-            ))}
-          </ul>
+       <StockChart name={name}/>
+        </div>
+        {/* <div className="row">
+        
+          <h2>News</h2>
+          
+          <div className="col bg-white my-3" style={{borderRadius:"20px", width:"100%", height:"350px"}}>
+            
+            <h4>{news?.item[0]?.title}</h4>
+            <p>{news?.item[0]?.description}</p>
+            </div>
+
+        <div className="col bg-white my-3" style={{borderRadius:"20px", width:"100%", height:"350px"}}>
+            
+            <h4>{news?.item[1]?.title}</h4>
+            <p>{news?.item[1]?.description}</p>
+            </div>
+   
+        <div className="col bg-white my-3" style={{borderRadius:"20px", width:"100%", height:"350px"}}>
+           
+            <h4>{news?.item[2]?.title}</h4>
+            <p>{news?.item[2]?.description}</p>
+            </div>
+
+        </div> */}
+
+          
         </div>
       </div>
-    </div>
+     
   );
 }

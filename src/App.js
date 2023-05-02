@@ -14,6 +14,7 @@ import ResetPassword from "./Components/Content/ResetPassword/ResetPassword";
 import CompanyPage from "./Components/Content/CompanyPage/CompanyPage";
 import VerifyEmail from "./Components/Content/EmailVerify/EmailVerify";
 import EmailVerify from "./Components/Content/EmailVerify/EmailVerify";
+import Screener from "./Components/Content/Screener/Screener";
 
 export const AppContext = createContext();
 
@@ -39,6 +40,7 @@ function App() {
             />
             <Route path="/company/:name" element={<CompanyPage />} />
             <Route path="/verify/:id/:token" element={<EmailVerify />} />
+            <Route path="/screener" element={<Screener />} />
           </Routes>
         </div>
         <Footer />

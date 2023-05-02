@@ -48,6 +48,11 @@ function NavBar() {
                   Tutorial
                 </a>
               </li>
+              <li className="nav-item py-2 px-3">
+                <a className="nav-link" href="/screener">
+                  Screener
+                </a>
+              </li>
               <li className="nav-item px-3">
                 <Link
                   className="nav-link"

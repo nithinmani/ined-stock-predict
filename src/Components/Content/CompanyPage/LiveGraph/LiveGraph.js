@@ -1,144 +1,56 @@
-// install (please make sure versions match peerDependencies)
-// yarn add @nivo/core @nivo/line
-import { ResponsiveLine } from "@nivo/line";
+import React, { useEffect, useState } from "react";
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-// make sure parent container have a defined height when using
-// responsive component, otherwise height will be 0 and
-// no chart will be rendered.
-// website examples showcase many properties,
-// you'll often use just a few of them.
-import React from 'react'
+function LiveGraph({ name }) {
+  const [graph, setGraph] = useState([]);
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(0);
 
-function LiveGraph({name}) {
-const data=[
-  {
-    "id": name,
-    "color": "hsl(80, 70%, 50%)",
-    "data": [
-      {
-        "x": "Jan",
-        "y": 94
-      },
-      {
-        "x": "Feb",
-        "y": 299
-      },
-      {
-        "x": "Mar",
-        "y": 179
-      },
-      {
-        "x": "Apr",
-        "y": 2
-      },
-      {
-        "x": "May",
-        "y": 228
-      },
-      {
-        "x": "Jun",
-        "y": 104
-      },
-      {
-        "x": "Jul",
-        "y": 174
-      },
-      {
-        "x": "Aug",
-        "y": 226
-      },
-      {
-        "x": "Sep",
-        "y": 250
-      },
-      {
-        "x": "Oct",
-        "y": 277
-      },
-      {
-        "x": "Nov",
-        "y": 157
-      },
-      {
-        "x": "Dec",
-        "y": 173
-      }
-      
-    ]
-  },
-  
-]
-  const MyResponsiveLine = ({ data  }) 
-    
-  
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://127.0.0.1:5000/stocks/${name}`);
+      const data = await response.json();
+      // Filter out data points with value 0
+      const filteredData = data.filter(([date, value]) => value !== 0);
+      setGraph(filteredData.map(([date, value]) => ({ date, value })));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+
+    // Fetch data every 1 minute
+    const intervalId = setInterval(fetchData, 111160000);
+
+    // Clean up the interval on component unmount
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [name]);
+
+  useEffect(() => {
+    const values = graph.map(({ value }) => value);
+    setMinValue(Math.min(...values));
+    setMaxValue(Math.max(...values));
+  }, [graph]);
+
   return (
-    <ResponsiveLine 
-    data={data}
-    margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{ type: "point" }}
-    yScale={{
-      type: "linear",
-      min: "auto",
-      max: "auto",
-      stacked: true,
-      reverse: false,
-    }}
-    yFormat=" >-.2f"
-    axisTop={null}
-    axisRight={null}
-    axisBottom={{
-      orient: "bottom",
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      legend: "Live Stock",
-      legendOffset: 36,
-      legendPosition: "middle",
-    }}
-    axisLeft={{
-      orient: "left",
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      legend: "value",
-      legendOffset: -40,
-      legendPosition: "middle",
-    }}
-    pointSize={10}
-    pointColor={{ theme: "background" }}
-    pointBorderWidth={2}
-    pointBorderColor={{ from: "serieColor" }}
-    pointLabelYOffset={-12}
-    useMesh={true}
-    legends={[
-      {
-        anchor: "bottom-right",
-        direction: "column",
-        justify: false,
-        translateX: 100,
-        translateY: 0,
-        itemsSpacing: 0,
-        itemDirection: "left-to-right",
-        itemWidth: 80,
-        itemHeight: 20,
-        itemOpacity: 0.75,
-        symbolSize: 12,
-        symbolShape: "circle",
-        symbolBorderColor: "rgba(0, 0, 0, .5)",
-        effects: [
-          {
-            on: "hover",
-            style: {
-              itemBackground: "rgba(0, 0, 0, .03)",
-              itemOpacity: 1,
-            },
-          },
-        ],
-      },
-    ]}
-  />
-  )
+    <div style={{paddingRight:"20px"}}>
+    <ResponsiveContainer width="100%" height={400}>
+      <AreaChart data={graph}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="date" />
+        <YAxis domain={[minValue - 10, maxValue + 10]} />
+        <Tooltip />
+        <Legend />
+        <Area type="monotone" dataKey="value" stroke="#8884d8" fill="#8884d8" />
+      </AreaChart>
+    </ResponsiveContainer>
+    </div>
+  );
+ 
 }
 
-export default LiveGraph
-
+export default LiveGraph;
