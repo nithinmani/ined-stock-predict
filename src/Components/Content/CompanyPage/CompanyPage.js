@@ -243,7 +243,7 @@ export default function CompanyPage() {
             <p>{news?.item[0]?.description}</p> */}
         </div>
         </div>
-        <div className="col-lg-8 p-3 bg-white" style={{ width: "70%", height: "560px",borderRadius:"20px",paddingTop:"20px", overflowY:"auto" }}>
+        <div className="col-lg-8 p-3 bg-white" style={{ width: "70%", height: "560px",borderRadius:"20px",paddingTop:"20px", overflowY:"auto",paddingLeft:"10px" }}>
         
        <StockChart name={name}/>
         </div>

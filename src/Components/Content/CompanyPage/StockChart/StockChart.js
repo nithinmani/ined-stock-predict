@@ -14,6 +14,8 @@ function StockChart({ name }) {
   const [predictedPrices, setPredictedPrices] = useState([]);
   const [random, setRandom] = useState([]);
   const [combine, setCombine] = useState([]);
+  const [minY, setMinY] = useState("");
+  const [maxY, setMaxY] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,6 +27,9 @@ function StockChart({ name }) {
         setPredictedPrices(response.data.predicted_prices);
         setRandom(response.data.random);
         setCombine(response.data.combine);
+        setMinY(parseInt(Math.min(...predictedPrices)) - 10);
+        setMaxY(parseInt(Math.max(...predictedPrices)) + 10);
+        
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -37,9 +42,8 @@ function StockChart({ name }) {
   if (loading) {
     return <p>Loading...</p>;
   }
-  
-  const minY = Math.min(...predictedPrices) - 10;
-  const maxY = Math.max(...predictedPrices) + 10;
+
+  console.log(minY, maxY);
 
   const minY1 = Math.min(...random) - 10;
   const maxY1 = Math.max(...random) + 10;
@@ -49,15 +53,16 @@ function StockChart({ name }) {
 
   return (
     <div>
-      <div
-        className="row"
-      
-      >
+      <div className="row" style={{ marginLeft: "60px" }}>
         <h1>Predicted Prices</h1>
-        <LineChart width={1000} height={400}>
+        <LineChart width={900} height={400}>
           <XAxis
             dataKey="index"
-            label={{ value: "Time", position: "insideBottomRight", offset: 0 }}
+            label={{
+              value: "Time",
+              position: "insideBottomRight",
+              offset: -5,
+            }}
             interval="preserveEnd"
           />
           <YAxis
@@ -65,9 +70,10 @@ function StockChart({ name }) {
               value: "Price",
               angle: -90,
               position: "insideLeft",
-              offset: 0,
+              offset: 5,
             }}
             domain={[minY, maxY]}
+            tickFormatter={tick => parseInt(tick)}
           />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
@@ -81,7 +87,7 @@ function StockChart({ name }) {
             data={predictedPrices.map((value, index) => ({ index, value }))}
           />
         </LineChart>
-        <LineChart width={800} height={400}>
+        <LineChart width={900} height={400}>
           <XAxis
             dataKey="index"
             label={{ value: "Time", position: "insideBottomRight", offset: 0 }}
@@ -92,9 +98,10 @@ function StockChart({ name }) {
               value: "Price",
               angle: -90,
               position: "insideLeft",
-              offset: 0,
+              offset: 5,
             }}
             domain={[minY1, maxY1]}
+            tickFormatter={tick => parseInt(tick)}
           />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
@@ -108,7 +115,7 @@ function StockChart({ name }) {
             data={random.map((value, index) => ({ index, value }))}
           />
         </LineChart>
-        <LineChart width={800} height={400}>
+        <LineChart width={900} height={400}>
           <XAxis
             dataKey="index"
             label={{ value: "Time", position: "insideBottomRight", offset: 0 }}
@@ -119,9 +126,10 @@ function StockChart({ name }) {
               value: "Price",
               angle: -90,
               position: "insideLeft",
-              offset: 0,
+              offset: 5,
             }}
             domain={[minY2, maxY2]}
+            tickFormatter={tick => parseInt(tick)}
           />
           <CartesianGrid strokeDasharray="3 3" />
           <Tooltip />
