@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import StockData from "../StockData/StockData";
@@ -11,10 +11,13 @@ import "./Home.css";
 import CompanyPage from "../CompanyPage/CompanyPage";
 import HOMEIMG from "./HOMEIMG1.png";
 
+import Fade from 'react-reveal/Fade';
+
 function Home() {
   const navigate = useNavigate();
   const [token, setToken] = useState("");
   const [isLoggedIn, setLoggedIn] = useState(false);
+  
 
   useEffect(() => {
     var token = localStorage.getItem("token") ?? "";
@@ -87,9 +90,9 @@ function Home() {
         </div>
         <div className="col-lg-5 col-sm-12 d-flex flex-column justify-content-center text-white leftHome px-3">
           <h1 className="title mb-4">MARKET FORECAST</h1>
-          <div className="row my-4">
+          <div className="row my-4" id="searchcomp">
             <div className="col">
-              <div className="dropdown-container">
+              <div className="dropdown-container" >
                 <Select
                   className="text-black"
                   options={optionList}
@@ -114,21 +117,28 @@ function Home() {
       <div className="row">
         <Features />
       </div>
+    
       <div className="row mb-2">
+      
         <NoviceInvester />
+      
+
       </div>
+   
       <div className="row">
-        <div className="col-sm-6 col-md-6 col-lg-6 mb-3">
+        <div className="col-sm-6 col-md-6 col-lg-6 mb-3 " id="topgainer">
           <StockData />
         </div>
-        <div className="col-sm-6 col-md-6 col-lg-6 mb-3">
+        <div className="col-sm-6 col-md-6 col-lg-6 mb-3" id="newslive">
           <News />
         </div>
       </div>
       <div className="row">
+      
         <div className="col">
           <AboutUs />
         </div>
+     
       </div>
     </div>
   );

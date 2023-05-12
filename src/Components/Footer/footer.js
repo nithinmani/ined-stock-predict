@@ -50,11 +50,9 @@ export default function Footer() {
             <a href="/about">About</a>
           </li>
           <li className="list-inline-item">
-            <a href="#">Terms</a>
+            <a href="#">Screener</a>
           </li>
-          <li className="list-inline-item">
-            <a href="#">Privacy Policy</a>
-          </li>
+          
         </ul>
         <p className="copyright">INED © 2023</p>
       </footer>

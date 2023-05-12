@@ -5,6 +5,7 @@ import { AppContext } from "../../../App";
 import "./Portfolio.css";
 import ADD from './ADD.png';
 import profile from './profile.png';
+import loadingGif from "./loading.gif"
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ function Portfolio() {
   const [totalHoldings, setTotalHoldings] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [totalProfit, setTotalProfit] = useState(0);
+  
+  const [isLoading, setIsLoading] = useState(true);
 
   //GET USER DATA
   async function getUser() {
@@ -53,6 +56,9 @@ function Portfolio() {
             console.error(error);
             return null; // or set a default value, like 0
           }
+          finally {
+            setIsLoading(false);
+          }
         })
       );
       setStockValues(stockValues);
@@ -84,8 +90,13 @@ function Portfolio() {
   }
 
   return (
-    <div className="mainpage justify-content-center">
-      {user && (
+    <div className="mainpage container-fluid justify-content-center align-items-center">
+      {isLoading && (
+      <div className="loading-container">
+        <img style={{margin: "15%",marginLeft:"48%"}} width={30} height={30} src={loadingGif} alt="Loading" />
+      </div>
+    )}
+      {!isLoading && user && (
         <div className="p-3 mx-3">
           <div className="row  " >
             <div className="col-lg-4 p-3 personalinfo" style={{ borderRadius: "20px" }}>

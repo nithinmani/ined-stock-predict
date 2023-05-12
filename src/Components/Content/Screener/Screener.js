@@ -2,6 +2,7 @@ import React, { useState ,useEffect} from 'react'
 import './Screener.css'
 import loadingGif from './loading.gif';
 
+
 function Screener() {
 
   const [liveData, setLiveData] = useState();
@@ -41,8 +42,8 @@ function Screener() {
     return (
       <div className="screenerPage container-fluid ">
         {loading ? (
-          <div className="loading-container d-flex justify-content-center align-items-center">
-            <img src={loadingGif} alt="Loading..." />
+          <div className="loading-container d-flex justify-content-center align-items-center ">
+            <img style={{margin: "13%"}} width={30} height={30}  src={loadingGif} alt="Loading..." />
           </div>
         ) : (
           <>

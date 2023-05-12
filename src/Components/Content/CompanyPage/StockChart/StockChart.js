@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import loadingGif from './loading.gif';
 import {
   LineChart,
   Line,
@@ -40,7 +41,12 @@ function StockChart({ name }) {
   }, [name]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return  <div className="loading-container d-flex justify-content-center align-items-center">
+    <img style={{margin: "15%"}} width={30} height={30} src={loadingGif} alt="Loading..." />
+    <br />
+    <p style={{color:"black"}}>predicting the stock price for you...........</p>
+  </div>
+  
   }
 
   console.log(minY, maxY);
@@ -55,7 +61,7 @@ function StockChart({ name }) {
     <div>
       <div className="row" style={{ marginLeft: "60px" }}>
         <h1>Predicted Prices</h1>
-        <LineChart width={900} height={400}>
+        <LineChart width={900} height={490} >
           <XAxis
             dataKey="index"
             label={{
@@ -87,7 +93,7 @@ function StockChart({ name }) {
             data={predictedPrices.map((value, index) => ({ index, value }))}
           />
         </LineChart>
-        <LineChart width={900} height={400}>
+        <LineChart width={900} height={490}>
           <XAxis
             dataKey="index"
             label={{ value: "Time", position: "insideBottomRight", offset: 0 }}
@@ -115,7 +121,7 @@ function StockChart({ name }) {
             data={random.map((value, index) => ({ index, value }))}
           />
         </LineChart>
-        <LineChart width={900} height={400}>
+        <LineChart width={900} height={490}>
           <XAxis
             dataKey="index"
             label={{ value: "Time", position: "insideBottomRight", offset: 0 }}
