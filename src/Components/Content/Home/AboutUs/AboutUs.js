@@ -5,12 +5,12 @@ import Fade from 'react-reveal/Fade';
 export default function AboutUs() {
   return (
     <div className="container">
-       <Fade bottom >
+       <Fade bottom duration={2000} >
       <div className="row p-5 mt-5">
         <h1 className="col-12">About Us</h1>
       </div>
       </Fade>
-      <Fade bottom >
+      <Fade bottom duration={2000} delay={200}>
       <div className="row px-5">
         <div className="col-lg-6 col-md-12 mb-3 mb-lg-0">
           <p style={{ fontSize: "20px" }}>

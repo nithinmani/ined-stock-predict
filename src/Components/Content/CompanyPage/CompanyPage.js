@@ -5,6 +5,7 @@ import "./CompanyPage.css";
 import Stockrec from "./stockrec";
 import StockChart from "./StockChart/StockChart";
 import loadingGif from "./StockChart/loading.gif";
+import NewsSent from "./NewsSent/NewsSent";
 
 
 export default function CompanyPage() {
@@ -63,7 +64,7 @@ export default function CompanyPage() {
           <h1 className="">{name}</h1>
         </div>
         
-        <div className="row">
+        <div className="shadow row bg-white m-3  pt-3" style={{borderRadius:"20px"}}>
           <p>{liveData?.assetProfile?.longBusinessSummary}</p>
           <p></p>
         </div>
@@ -86,7 +87,7 @@ export default function CompanyPage() {
               </div>
               <div className="col">
                 <div
-                  className="card text-white bg-black mb-3"
+                  className="shadow card text-white bg-black mb-3"
                   style={{ maxWidth: "18rem" }}
                 >
                   
@@ -113,7 +114,7 @@ export default function CompanyPage() {
 
 
 {/*LiveGraph..................................................................................................... */}
-            <div className="row bg-white p-3 mb-2" style={{ width: "100%", height: "100%",borderRadius:"20px" }}>
+            <div className="shadow row bg-white p-3 mb-2" style={{ width: "100%", height: "100%",borderRadius:"20px",boxShadow:"100px" }}>
               <LiveGraph name={name}/>
               
             </div>
@@ -124,7 +125,7 @@ export default function CompanyPage() {
           </div>
  
 {/* top high low value end..................................................................................................................... */}
-<div className="col-lg-5 bg-white p-2 px-5" style={{borderRadius:"20px",boxShadow:"20px"}}>
+<div className="shadow col-lg-5 bg-white p-2 px-5" style={{borderRadius:"20px"}}>
   <h3 className="py-2 mt-2">Detailed Analysis</h3>
   <div className="row px-2">
           <div className="col mx-2 " >
@@ -234,11 +235,11 @@ export default function CompanyPage() {
       </div>
       <div className="row mx-5 ">
         <div className="col-lg-3">
-        <div className="row bg-white" style={{borderRadius:"20px", width:"100%", height:"265px"}}>
+        <div className="shadow row bg-white" style={{borderRadius:"20px", width:"100%", height:"265px"}}>
           <h6>Recommendation</h6>
         <Stockrec name={name}/>
             </div>
-            <div className="row bg-white my-3" style={{borderRadius:"20px", width:"100%", height:"280px",paddingTop:"20px"}}>
+            <div className="shadow row bg-white my-3" style={{borderRadius:"20px", width:"100%", height:"280px",paddingTop:"20px"}}>
               <h3>Important values to note</h3>
               <p><b>Previous Close:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.previousClose?.raw} <br /><br />
               <b>FiftyTwoWeek High:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.fiftyTwoWeekHigh?.raw} <br /><br />
@@ -247,13 +248,16 @@ export default function CompanyPage() {
               <b>Volume:</b> {dailyData?.summaryDetail?.volume?.raw}</p>
         </div>
         </div>
-        <div className="col-lg-9 p-3 bg-white" style={{ height: "560px",borderRadius:"20px",paddingTop:"20px", overflowY:"auto",paddingLeft:"10px" }}>
+        <div className="shadow col-lg-9 p-3 bg-white" style={{ height: "560px",borderRadius:"20px",paddingTop:"20px", overflowY:"auto",paddingLeft:"10px" }}>
         
        <StockChart name={name}/>
         </div>
        
 
           
+        </div>
+        <div className="row">
+        <NewsSent name={name}/>
         </div>
         </div>
         )}

@@ -89,7 +89,9 @@ function Home() {
           {/* <img className="mr-5"  src="https://img.freepik.com/free-vector/isometric-stock-exchange-financial-market-trading-composition_1284-67573.jpg?w=740&t=st=1678464790~exp=1678465390~hmac=cee899be45a58cf458be2a4171f0d16ca185ad78cd8f95ea7e00557e13822783" alt="" /> */}
         </div>
         <div className="col-lg-5 col-sm-12 d-flex flex-column justify-content-center text-white leftHome px-3">
+          <Fade bottom duration={2000} delay={500}>
           <h1 className="title mb-4">MARKET FORECAST</h1>
+          </Fade>
           <div className="row my-4" id="searchcomp">
             <div className="col">
               <div className="dropdown-container" >

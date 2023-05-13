@@ -1,6 +1,7 @@
 import React, { useState ,useEffect} from 'react'
 import './Screener.css'
 import loadingGif from './loading.gif';
+import Fade from 'react-reveal/Fade';
 
 
 function Screener() {
@@ -46,8 +47,15 @@ function Screener() {
             <img style={{margin: "13%"}} width={30} height={30}  src={loadingGif} alt="Loading..." />
           </div>
         ) : (
-          <>
-      <div className="ft row m-3">
+          <div className="container-fluid  ">
+          <div className="row d-flex justify-content-center align-items-center">
+          
+        <img style={{width:"16%", height:"100%"}}  src="https://img.freepik.com/free-vector/manager-working-with-target-audience-cartoon-character-marketing-process-client-conversion-website-visitors-lead-generation-customer-attraction_335657-2341.jpg?w=740&t=st=1683860460~exp=1683861060~hmac=27e0afd17ed53c96e06fc0838bc4bb33eb0118ae4ca8608e13d3c3a2d616970c" alt="" />
+       
+        
+        <Fade bottom duration={2000}>
+          
+      <div className="shadow ft row m-3">
         <h3>{liveData?.description}</h3>
         <table className="table">
   <thead>
@@ -92,8 +100,10 @@ function Screener() {
   </tbody>
 </table>
 </div>
+</Fade>
 
-<div className="ft row m-3">
+<Fade bottom duration={2000} delay={200}>
+<div className="shadow ft row m-3">
 <h3>{underValue?.description}</h3>
         <table className="table">
   <thead>
@@ -138,8 +148,10 @@ function Screener() {
   </tbody>
 </table>
 </div>
+</Fade>
 
-<div className="ft row m-3">
+<Fade bottom duration={2000} delay={400}>
+<div className="ft shadow row m-3">
 <h3>{smallCap?.description}</h3>
         <table className="table">
   <thead>
@@ -184,7 +196,11 @@ function Screener() {
   </tbody>
 </table>
 </div>
-</>
+</Fade>
+</div>
+
+</div>
+
         )}
 </div>
   )
