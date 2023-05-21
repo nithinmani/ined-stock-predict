@@ -3,7 +3,7 @@ import "./Features.css";
 import Earth from "./Earth.png";
 import Fade from "react-reveal/Fade";
 import { HashLink } from "react-router-hash-link";
-
+import earthgif from './earthgif.gif'
 function Features() {
   return (
     <div>
@@ -75,7 +75,7 @@ function Features() {
           </div>
         </div>
         <div className="col">
-          <img className=" ml-5" src={Earth} alt="earth" />
+        <img style={{width:"100%",height:"100%"}}  src={earthgif} alt="Loading" />
         </div>
       </div>
     </div>

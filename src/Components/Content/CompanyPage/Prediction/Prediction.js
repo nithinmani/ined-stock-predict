@@ -30,7 +30,7 @@ function Prediction({ name }) {
     <div>
       <div className="row">
       <h1>Predicted Prices</h1>
-      <LineChart width={800} height={400} data={predictedPrices.map((value, index) => ({index, value}))}>
+      <LineChart style={{innerWidth:"100%",innerHeight:"100%"}} data={predictedPrices.map((value, index) => ({index, value}))}>
         <XAxis dataKey="index" label={{ value: 'Time', position: 'insideBottomRight', offset: 0 }} />
         <YAxis label={{ value: 'Price', angle: -90, position: 'insideLeft', offset: 0 }} />
         <CartesianGrid strokeDasharray="3 3" />

@@ -42,9 +42,8 @@ function StockChart({ name }) {
 
   if (loading) {
     return  <div className="loading-container d-flex justify-content-center align-items-center">
-    <img style={{margin: "15%"}} width={30} height={30} src={loadingGif} alt="Loading..." />
-    <br />
-    <p style={{color:"black"}}>predicting the stock price for you...........</p>
+    <img style={{margin: "16%"}} width={30} height={30} src={loadingGif} alt="Loading..." />
+    
   </div>
   
   }
@@ -60,7 +59,7 @@ function StockChart({ name }) {
   return (
     <div>
       <div className="row" style={{ marginLeft: "60px" }}>
-        <h1>Predicted Prices</h1>
+        <h5>Predicted Prices</h5>
         <LineChart width={900} height={490} >
           <XAxis
             dataKey="index"

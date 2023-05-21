@@ -99,7 +99,7 @@ function Addstock() {
       <div className="AddStockPage col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
         <div className="row">
           <div className="col-md-8">
-            <div className="card mb-4">
+            <div className="card mb-4 shadow">
               <div className="card-body userCard">
                 <p className="text-uppercase fw-bold mb-3 text-font ">
                   Name: {user.user?.name}
@@ -125,7 +125,7 @@ function Addstock() {
             </div>
           </div>
           <div className="col-md-8">
-            <div className="card mb-4">
+            <div className="card mb-4 shadow">
               <div className="card-body companyCard">
                 <p className="text-uppercase h4 text-font">Company:</p>
                 <div className="row">
@@ -148,7 +148,7 @@ function Addstock() {
             </div>
           </div>
           <div className="col-md-8 mb-4">
-            <div className="card mb-4 stockCard">
+            <div className="card mb-4 stockCard shadow">
               <div className="card-header py-3">
                 <h5 className="mb-0 text-font text-uppercase">Stock Details</h5>
               </div>

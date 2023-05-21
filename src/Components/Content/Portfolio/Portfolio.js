@@ -4,9 +4,9 @@ import { json, useNavigate } from "react-router-dom";
 import { AppContext } from "../../../App";
 import "./Portfolio.css";
 import ADD from './ADD.png';
-import profile from './profile.png';
+import profile from './profile.gif';
 import loadingGif from "./loading.gif"
-
+import pictu from './p.png'
 function Portfolio() {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(AppContext);
@@ -34,10 +34,13 @@ function Portfolio() {
           "x-access-token": token,
         },
       });
+      console.log(response)
       const data = await response.json();
+      console.log(data)
+
       setUser(data);
-      
-      const stockValues = await Promise.all(
+     
+      const stocksv = await Promise.all(
         data.stocks?.map(async (stock) => {
           try {
             const response = await fetch(
@@ -50,29 +53,34 @@ function Portfolio() {
                 },
               }
             );
+            
             const data = await response.json();
+            console.log(data)
             return data.price;
           } catch (error) {
             console.error(error);
             return null; // or set a default value, like 0
           }
-          finally {
-            setIsLoading(false);
-          }
+          // finally {
+          //   setIsLoading(false);
+          // }
         })
       );
-      setStockValues(stockValues);
+      console.log(stocksv)
+      setStockValues(stocksv);
 
       // Calculate the total holdings, total cost, and total profit
-      let totalHoldings = 0;
-      let totalCost = 0;
-      data.stocks.forEach((stock, index) => {
-        totalHoldings += stock.stockVolume * stockValues[index];
-        totalCost += stock.VOP;
-      });
-      setTotalHoldings(totalHoldings);
-      setTotalCost(totalCost);
-      setTotalProfit(totalHoldings - totalCost);
+      // let totalHoldings = 0;
+      // let totalCost = 0;
+      // data.stocks.forEach((stock, index) => {
+      //   totalHoldings += stock.stockVolume * stockValues[index];
+      //   totalCost += stock.VOP;
+      // });
+      // console.log(totalHoldings)
+      // console.log(totalProfit)
+      // setTotalHoldings(totalHoldings);
+      // setTotalCost(totalCost);
+      // setTotalProfit(totalHoldings - totalCost);
     } catch (err) {
       console.error(err);
     }
@@ -81,6 +89,21 @@ function Portfolio() {
   useEffect(() => {
     getUser();
   }, []);
+  useEffect(() => {
+    // Calculate the total holdings, total cost, and total profit
+    let totalHoldings = 0;
+    let totalCost = 0;
+    stockValues.forEach((value, index) => {
+      if (value) {
+        totalHoldings += user.stocks[index].stockVolume * value;
+        totalCost += user.stocks[index].VOP;
+      }
+    });
+    setTotalHoldings(totalHoldings);
+    setTotalCost(totalCost);
+    setTotalProfit(totalHoldings - totalCost);
+  }, [stockValues]);
+  
 
   //Handle logout
   function handleLogout() {
@@ -91,39 +114,45 @@ function Portfolio() {
 
   return (
     <div className="mainpage container-fluid justify-content-center align-items-center">
-      {isLoading && (
+      {/* {isLoading && (
       <div className="loading-container">
         <img style={{margin: "15%",marginLeft:"48%"}} width={30} height={30} src={loadingGif} alt="Loading" />
       </div>
     )}
-      {!isLoading && user && (
+      {!isLoading && user && ( */}
         <div className="p-3 mx-3">
           <div className="row  " >
-            <div className="col-lg-4 p-3 personalinfo" style={{ borderRadius: "20px" }}>
-              <div className="row">
-              <div className="col-lg-4">
-                <img src={profile} alt="" style={{width:"100%"}}/>
+            
+              <div className="row shadow personalinfo" style={{ borderRadius: "20px" }}>
+              <div className="col-lg-2">
+                <img src={profile} alt="" style={{width:"100%",height:"100%"}}/>
               </div>
-                <div className="col-lg-8 text-center portfolioNameBox">
+                <div className="col-lg-2 text-center portfolioNameBox">
               <h2 className="YourName">{user.user?.name}</h2>
-              <p>{user?.user.email}</p>
+              <p>{user?.user?.email}</p>
               </div>
-             
-              </div>
-            </div>
-            <div className="col">
+              <div className="col-lg-3 align-items-center justify-content-center d-flex">
               <button
-                className="logout-button btn btn-outline-light bg-danger"
+                className="logout-button btn btn-outline-light bg-danger shadow mx-auto"
                 onClick={handleLogout}
               >
                 Log Out
               </button> 
               </div>
+              <div className="col align-items-center justify-content-center d-none d-md-block">
+                <img style={{width:"80%",height:"100%"}} src={pictu} alt="" />
+              </div>
+             
+            
+            </div>
+            
+            
             
           </div>
-          <div className="row">
+          
+          <div className="row my-4">
   <div className="col">
-    <div className="row valuestack p-3 px-5 my-4">
+    <div className="row  valuestack p-3 px-5 ">
       <div className="col-4">
         <h5 className="value-label">&#8377;{totalHoldings.toFixed(3)}</h5>
         <p>Total Stock Holdings</p>
@@ -139,9 +168,9 @@ function Portfolio() {
     </div>
   </div>
   <div className="col-lg-2 d-flex align-items-center justify-content-center ">
-    <div className="row ">
-        <a className="addStockLink" href="/Addstock">
-          <img src={ADD} alt="Add stock" style={{width:"50px",display: "inline-block"}}/> 
+    <div className="row shadow rounded p-3 py-4 ">
+        <a className="addStockLink " href="/Addstock">
+          <img  src={ADD} alt="Add stock" style={{width:"50px",display: "inline-block"}}/> 
           <p className="text-black PortaddStock mx-3 my-2" style={{display: "inline-block"}}> ADD STOCK</p>
         </a>
       </div>
@@ -149,16 +178,12 @@ function Portfolio() {
 </div>
 
 
-          <div className="row stocks ">
-            <div className="col-lg-4 my-2">
-              <img style={{"width":"100%"}} src="https://img.freepik.com/free-vector/personal-site-concept-illustration_114360-2577.jpg?w=740&t=st=1678614469~exp=1678615069~hmac=4e0ac608c442e54921ce925c9502c0ae94a104d8b72bc69286ea4a827edfb21b" alt="" />
-            </div>
-            <div className="col  my-2">
+          <div className="row stocks shadow rounded p-3">
               <h2 className="mt-4 mb-3 " style={{ fontWeight: "bold" }}>
                 STOCK HOLDINGS
               </h2>
-              <div className="table-responsive border " style={{borderRadius:"20px"}}>
-                <table className="table portTable text-white">
+              <div className="table-responsive  " style={{borderRadius:"20px"}}>
+                <table className="table portTable text-black">
                   <thead className="thead-light " style={{ fontSize: "1rem" }}>
                     <tr className="portfolioTableTitles">
                       <th scope="col">Company</th>
@@ -170,7 +195,7 @@ function Portfolio() {
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody style={{ fontSize: "0.8rem" }}>
+                  <tbody style={{ fontSize: "1rem" }}>
                     {user?.stocks?.map((stock, index) => (
                       <tr key={index}>
                         <td>{stock.company}</td>
@@ -197,8 +222,8 @@ function Portfolio() {
                         {/*DELETE BUTTON BEGIN ................................................................... */}
                         <td>
                           <button
-                            className="m-3 px-3 bg-danger"
-                            style={{ borderRadius: "5px" }}
+                            className="m-3 px-3 bg-danger shadow rounded"
+                            
                             onClick={async () => {
                               console.log(stock.stockId);
                               const response = await fetch(
@@ -228,13 +253,14 @@ function Portfolio() {
                 </table>
               </div>
               {/*Table of the user stock holdings  END...............................................*/}
-            </div>
+           
             
           </div>
+         
             
           </div>
         
-      )}
+      {/* )} */}
     </div>
   );
 }

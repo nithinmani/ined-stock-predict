@@ -90,7 +90,6 @@ function Login() {
                 <div className="row g-0">
                   <div className="col-md-6 col-lg-5 d-none d-md-block">
                     <img
-                      // src={process.env.PUBLIC_URL+"LoginCover.jpg"}
                       src={LoginCover}
                       alt="login form"
                       className="img-fluid"
@@ -153,17 +152,14 @@ function Login() {
                           </p>
                         </div>
                         <div className="pt-1 mb-4">
-                          {/* <a
-                        href="/profile"
-                        style={{ color: "white", textDecoration: "none" }}
-                      > */}
+                         
                           <button
                             className="btn btn-primary btn-lg btn-block"
                             type="submit"
                           >
                             Login
                           </button>
-                          {/* </a> */}
+                       
                         </div>
                         <a className="small text-muted" href="/forgotPassword">
                           Forgot password?

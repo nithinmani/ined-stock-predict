@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,45 +8,50 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import axios from "axios";
 
-function NewsSent({ name }) {
+const SentimentGraph = ({ name }) => {
   const [sentimentData, setSentimentData] = useState([]);
   const [fetchSuccess, setFetchSuccess] = useState(false);
 
   useEffect(() => {
-    async function getSentiment() {
+    const fetchSentimentData = async () => {
       try {
+        let nData = [];
+        let idx = 1;
         const response = await axios.get(
-          `http://127.0.0.1:5000/hist_sentiment/${name}`
+          `http://127.0.0.1:5000/news_sentiment/${name}`
         );
-        setSentimentData(JSON.parse(response.data));
+        console.log(response.data);
+        response.data[0].forEach((d) => {
+          nData.push({
+            Date: idx,
+            sentiment_score: d,
+          });
+          idx = idx + 1;
+        });
+        console.log("pred", nData);
+
+        setSentimentData(nData);
         setFetchSuccess(true);
-        console.log("news sent", response.data);
       } catch (error) {
         console.error(error);
         setFetchSuccess(false);
       }
-    }
-    getSentiment();
-  }, [name]);
+    };
 
-  // Helper function to format the date
-  function formatDate(dateString) {
-    const date = new Date(dateString);
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return date.toLocaleDateString("en-US", options);
-  }
+    fetchSentimentData();
+  }, [name]);
 
   return (
     <div>
-      
       {fetchSuccess && (
         <>
-        <h3>Sentiment Scores</h3>
+         <h3>Sentiment Score Prediction</h3>
         <LineChart width={600} height={400} data={sentimentData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="Date" tickFormatter={formatDate} />
-          <YAxis />
+          <XAxis dataKey="Date" />
+          <YAxis domain={[0.5, 0.56]} />
           <Tooltip />
           <Legend />
           <Line
@@ -61,6 +65,6 @@ function NewsSent({ name }) {
       )}
     </div>
   );
-}
+};
 
-export default NewsSent;
+export default SentimentGraph;

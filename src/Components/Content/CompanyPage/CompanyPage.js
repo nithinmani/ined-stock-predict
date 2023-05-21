@@ -6,6 +6,7 @@ import Stockrec from "./stockrec";
 import StockChart from "./StockChart/StockChart";
 import loadingGif from "./StockChart/loading.gif";
 import NewsSent from "./NewsSent/NewsSent";
+import SentimentGraph from "./NewsSent/SentimentGraph";
 
 
 export default function CompanyPage() {
@@ -57,25 +58,28 @@ export default function CompanyPage() {
        {isLoading ? (
         <img style={{margin: "15%"}} width={30} height={30} src={loadingGif} alt="Loading..." />
       ) : (
-        <div>
-      <div className="row p-5">
+        <div className="container-fluid p-5">
+     
         
-        <div className="col-10">
+        <div className="row">
           <h1 className="">{name}</h1>
         </div>
         
-        <div className="shadow row bg-white m-3  pt-3" style={{borderRadius:"20px"}}>
+        <div className="shadow row bg-white my-3  pt-3 rounded" >
           <p>{liveData?.assetProfile?.longBusinessSummary}</p>
           <p></p>
         </div>
-        <div className="col-lg-7" >
-          <div className="container-fluid">
+        
+        <div className="row mb-3" >
+
+        <div className="col-lg-8" >
+         
             <div className="row">
               <div className="col">
 
                 <div
-                  className="card text-white bg-black mb-3"
-                  style={{ maxWidth: "18rem" }}
+                  className="card shadow text-black border-0 mb-3" 
+                  style={{ maxWidth: "18rem", backgroundColor:"aliceblue" }}
                 >
                   
                   <div className="card-body">
@@ -87,8 +91,8 @@ export default function CompanyPage() {
               </div>
               <div className="col">
                 <div
-                  className="shadow card text-white bg-black mb-3"
-                  style={{ maxWidth: "18rem" }}
+                  className="shadow card text-black border-0 mb-3"
+                  style={{ maxWidth: "18rem", backgroundColor:"aliceblue" }}
                 >
                   
                   <div className="card-body">
@@ -99,8 +103,8 @@ export default function CompanyPage() {
               </div>
               <div className="col">
                 <div
-                  className="card text-white bg-black mb-3"
-                  style={{ maxWidth: "18rem" }}
+                  className="shadow card text-black border-0 mb-3"
+                  style={{ maxWidth: "18rem" , backgroundColor:"aliceblue" }}
                 >
                   
                   <div className="card-body">
@@ -114,39 +118,37 @@ export default function CompanyPage() {
 
 
 {/*LiveGraph..................................................................................................... */}
-            <div className="shadow row bg-white p-3 mb-2" style={{ width: "100%", height: "100%",borderRadius:"20px",boxShadow:"100px" }}>
+            <div className="shadow row bg-white  p-3 rounded " style={{ width:"100%" }}>
               <LiveGraph name={name}/>
               
             </div>
 {/* LiveGraph end..................................................................................................... */}
 
 
-          </div>
+          
           </div>
  
 {/* top high low value end..................................................................................................................... */}
-<div className="shadow col-lg-5 bg-white p-2 px-5" style={{borderRadius:"20px"}}>
+<div className=" col-lg-4 bg-white px-5 rounded" >
   <h3 className="py-2 mt-2">Detailed Analysis</h3>
-  <div className="row px-2">
+  <div className="row py-3">
           <div className="col mx-2 " >
             <div className="row">
               <div
-                className="card text-white bg-black mb-3"
-                style={{ maxWidth: "13rem" }}
+                className="card text-black mb-3 border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
                 
                 <div className="card-body">
-                  <h5 className="card-title">currentRatio
-</h5>
-                <p className="card-text">{liveData?.financialData?.currentRatio
-.fmt}</p>
+                  <h5 className="card-title">currentRatio</h5>
+                <p className="card-text">{liveData?.financialData?.currentRatio.fmt}</p>
                 </div>
               </div>
             </div>
             <div className="row">
               <div
-                className="card text-white bg-black mb-3"
-                style={{ maxWidth: "13rem" }}
+                className="card text-black mb-3 border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
                 
                 <div className="card-body">
@@ -157,8 +159,8 @@ export default function CompanyPage() {
             </div>
             <div className="row">
               <div
-                className="card text-white bg-black mb-3"
-                style={{ maxWidth: "13rem" }}
+                className="card text-black mb-3 border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
                 
                 <div className="card-body">
@@ -169,8 +171,8 @@ export default function CompanyPage() {
             </div>
             <div className="row">
               <div
-                className="card text-white bg-black "
-                style={{ maxWidth: "13rem" }}
+                className="card text-black  border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
              
                 <div className="card-body">
@@ -183,8 +185,8 @@ export default function CompanyPage() {
           <div className="col mx-2">
             <div className="row">
               <div
-                className="card text-white bg-black mb-3"
-                style={{ maxWidth: "13rem" }}
+                className="card text-black mb-3 border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
                
                 <div className="card-body">
@@ -195,8 +197,8 @@ export default function CompanyPage() {
             </div>
             <div className="row">
               <div
-                className="card text-white bg-black mb-3"
-                style={{ maxWidth: "13rem" }}
+                className="card text-black mb-3 border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
                 
                 <div className="card-body">
@@ -207,8 +209,8 @@ export default function CompanyPage() {
             </div>
             <div className="row">
               <div
-                className="card text-white bg-black mb-3"
-                style={{ maxWidth: "13rem" }}
+                className="card text-black mb-3 border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
              
                 <div className="card-body">
@@ -219,8 +221,8 @@ export default function CompanyPage() {
             </div>
             <div className="row">
               <div
-                className="card text-white bg-black "
-                style={{ maxWidth: "13rem" }}
+                className="card text-black border-0 shadow"
+                style={{ maxWidth: "13rem" , backgroundColor:"aliceblue" }}
               >
                 
                 <div className="card-body">
@@ -232,23 +234,25 @@ export default function CompanyPage() {
           </div>
         </div>
         </div>
-      </div>
-      <div className="row mx-5 ">
+        </div>
+  
+      
+      <div className="row  ">
         <div className="col-lg-3">
-        <div className="shadow row bg-white" style={{borderRadius:"20px", width:"100%", height:"265px"}}>
-          <h6>Recommendation</h6>
+        <div className="shadow row bg-white rounded" style={{ width:"100%", height:"265px"}}>
+          <h5>Recommendation</h5>
         <Stockrec name={name}/>
             </div>
-            <div className="shadow row bg-white my-3" style={{borderRadius:"20px", width:"100%", height:"280px",paddingTop:"20px"}}>
-              <h3>Important values to note</h3>
+            <div className="shadow row bg-white my-3 rounded" style={{ width:"100%", height:"280px",paddingTop:"20px"}}>
+              <h5>Important values to note</h5>
               <p><b>Previous Close:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.previousClose?.raw} <br /><br />
               <b>FiftyTwoWeek High:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.fiftyTwoWeekHigh?.raw} <br /><br />
               <b>FiftyTwoWeek Low:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.fiftyTwoWeekLow?.raw}  <br /><br />
               <b>RegularMarket Open:</b> {liveData?.financialData?.financialCurrency+" "+dailyData?.summaryDetail?.regularMarketOpen?.raw} <br /><br />
-              <b>Volume:</b> {dailyData?.summaryDetail?.volume?.raw}</p>
+              </p>
         </div>
         </div>
-        <div className="shadow col-lg-9 p-3 bg-white" style={{ height: "560px",borderRadius:"20px",paddingTop:"20px", overflowY:"auto",paddingLeft:"10px" }}>
+        <div className="shadow rounded col-lg-9 p-3 bg-white" style={{ height: "560px",paddingTop:"20px", overflowY:"auto",paddingLeft:"10px" }}>
         
        <StockChart name={name}/>
         </div>
@@ -256,8 +260,14 @@ export default function CompanyPage() {
 
           
         </div>
-        <div className="row">
+        <div className="row ">
+        
+          <div className="col shadow rounded bg-white my-3 " style={{width: "100%", height: "100%"}}>
         <NewsSent name={name}/>
+        </div>
+        <div className="col shadow rounded bg-white my-3 mx-3" style={{width: "100%", height: "100%"}}>
+        <SentimentGraph name={name}/>
+        </div>
         </div>
         </div>
         )}
