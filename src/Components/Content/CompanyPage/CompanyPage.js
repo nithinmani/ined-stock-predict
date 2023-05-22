@@ -72,7 +72,7 @@ export default function CompanyPage() {
         
         <div className="row mb-3" >
 
-        <div className="col-lg-8" >
+        <div className="col-lg-7" >
          
             <div className="row">
               <div className="col">
@@ -129,7 +129,7 @@ export default function CompanyPage() {
           </div>
  
 {/* top high low value end..................................................................................................................... */}
-<div className=" col-lg-4 bg-white px-5 rounded" >
+<div className=" col-lg-5 bg-white px-5 rounded" >
   <h3 className="py-2 mt-2">Detailed Analysis</h3>
   <div className="row py-3">
           <div className="col mx-2 " >
