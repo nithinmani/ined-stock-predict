@@ -56,7 +56,7 @@ function Register() {
     }
 
     const response = await fetch(
-      "https://inedserver.up.railway.app/api/register",
+      "http://localhost:3030/api/register",
       {
         method: "POST",
         headers: {
@@ -170,7 +170,7 @@ function Register() {
                     </div>
                     <p className="mb-5 pb-lg-2" style={{ color: "#393f81" }}>
                       Already have an account?
-                      <a href="/login" style={{ color: "#393f81" }}>
+                      <a href="/#/login" style={{ color: "#393f81" }}>
                         Login here
                       </a>
                     </p>

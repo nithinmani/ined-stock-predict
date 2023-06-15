@@ -13,7 +13,7 @@ const EmailVerify = () => {
   useEffect(() => {
     const verifyEmailUrl = async () => {
       try {
-        const url = `https://inedserver.up.railway.app/verify/${param.id}/${param.token}`;
+        const url = `http://localhost:3030/verify/${param.id}/${param.token}`;
         const { data } = await axios.get(url);
         console.log(data);
         setValidUrl(true);

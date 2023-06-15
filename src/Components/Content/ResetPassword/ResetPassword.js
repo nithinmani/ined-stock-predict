@@ -9,7 +9,7 @@ const PasswordReset = () => {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
   const param = useParams();
-  const url = `https://inedserver.up.railway.app/api/password-reset/${param.id}/${param.token}`;
+  const url = `http://localhost:3030/api/password-reset/${param.id}/${param.token}`;
 
   useEffect(() => {
     const verifyUrl = async () => {
@@ -29,7 +29,7 @@ const PasswordReset = () => {
       const { data } = await axios.post(url, { password });
       setMsg(data.message);
       setError("");
-      window.location = "/login";
+      window.location = "/#/login";
     } catch (error) {
       if (
         error.response &&

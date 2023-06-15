@@ -15,7 +15,7 @@ function Addstock() {
       setToken(token);
       try {
         const response = await fetch(
-          "https://inedserver.up.railway.app/api/get-user",
+          "http://localhost:3030/api/get-user",
           {
             method: "GET",
             headers: {
@@ -59,7 +59,7 @@ function Addstock() {
 
     try {
       const response = await fetch(
-        "https://inedserver.up.railway.app/api/add-stock",
+        "http://localhost:3030/api/add-stock",
         {
           method: "POST",
           headers: {

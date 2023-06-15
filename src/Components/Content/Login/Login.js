@@ -41,7 +41,7 @@ function Login() {
     }
 
     const response = await fetch(
-      "https://inedserver.up.railway.app/api/login",
+      "http://localhost:3030/api/login",
       {
         method: "POST",
         headers: {
@@ -161,7 +161,7 @@ function Login() {
                           </button>
                        
                         </div>
-                        <a className="small text-muted" href="/forgotPassword">
+                        <a className="small text-muted" href="/#/forgotPassword">
                           Forgot password?
                         </a>
                         <p
